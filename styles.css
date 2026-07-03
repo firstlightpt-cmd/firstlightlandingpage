@@ -70,6 +70,10 @@ html, body {
   font-family: var(--font-serif);
   color: var(--color-ink);
 }
+/* Weiß NUR auf html (nicht body!): wird beim Überscrollen (Gummiband-
+   Effekt) sichtbar. Auf dem body würde es das Wasser-Foto (.site-bg,
+   z-index:-1) verdecken. */
+html { background: #ffffff; }
 
 /* Fixer Hintergrund: das Wasser-Foto bleibt beim Scrollen stehen.
    Liegt hinter allen Inhalten (z-index:-1). Bild austauschen:
@@ -95,22 +99,26 @@ a   { color: inherit; }
   top: 0; left: 0; right: 0;
   z-index: 50;
   pointer-events: none;          /* Verlauf selbst nicht klickbar … */
-  padding: 18px 0 44px;
+  /* Auf dem iPhone kommt oben die Höhe der Statusleiste dazu
+     (env(safe-area-inset-top) – funktioniert nur mit viewport-fit=cover
+     im Meta-Tag der index.html). Am Desktop ist der Wert 0. */
+  padding: calc(18px + env(safe-area-inset-top, 0px)) 0 44px;
+  /* Der Verlauf beginnt erst UNTER der Statusleiste (background-size),
+     der Streifen dahinter wird vom ::before darunter voll weiß gefüllt. */
   background: linear-gradient(180deg,
     #ffffff 0%, rgba(255,255,255,.98) 16%, rgba(255,255,255,.92) 32%,
     rgba(255,255,255,.78) 48%, rgba(255,255,255,.52) 64%,
-    rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%);
+    rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%)
+    bottom / 100% calc(100% - env(safe-area-inset-top, 0px)) no-repeat;
   transition: opacity .3s ease;
 }
-/* Weißer Block OBERHALB des Headers: iOS Safari schiebt die Seite beim
-   Scrollen bis unter die Statusleiste (Uhr/Dynamic Island) – dort würde
-   sonst Inhalt sichtbar vorbeiziehen. Dieser Streifen deckt das ab. */
+/* Voll-weißer Streifen exakt hinter der iPhone-Statusleiste (Uhr/Dynamic
+   Island), damit dort beim Scrollen kein Inhalt durchscheint. */
 .site-header::before {
   content: "";
   position: absolute;
-  left: 0; right: 0;
-  bottom: 100%;          /* direkt oberhalb des Headers ansetzen */
-  height: 150px;         /* großzügig – ragt normalerweise unsichtbar aus dem Bild */
+  top: 0; left: 0; right: 0;
+  height: env(safe-area-inset-top, 0px);
   background: #ffffff;
 }
 
@@ -171,7 +179,10 @@ a   { color: inherit; }
   transition: opacity .38s ease, transform .38s ease;
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
-  padding: 104px 32px 38px; text-align: center;
+  /* safe-area: Menüpunkte nicht unter Statusleiste/Home-Balken schieben */
+  padding: calc(104px + env(safe-area-inset-top, 0px)) 32px
+           calc(38px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
 }
 .mobile-menu.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .mobile-menu nav { display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -345,7 +356,8 @@ a   { color: inherit; }
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   gap: clamp(34px, 6vh, 68px);
-  padding: 120px 22px 60px;     /* oben Platz für den fixierten Header */
+  /* oben Platz für den fixierten Header (+ iPhone-Statusleiste) */
+  padding: calc(120px + env(safe-area-inset-top, 0px)) 22px 60px;
   overflow: hidden;
 }
 .hero--sub { min-height: 66vh; gap: clamp(28px,5vh,52px); padding-bottom: 48px; }
