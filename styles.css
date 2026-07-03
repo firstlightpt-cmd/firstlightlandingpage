@@ -102,6 +102,18 @@ a   { color: inherit; }
     rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%);
   transition: opacity .3s ease;
 }
+/* Weißer Block OBERHALB des Headers: iOS Safari schiebt die Seite beim
+   Scrollen bis unter die Statusleiste (Uhr/Dynamic Island) – dort würde
+   sonst Inhalt sichtbar vorbeiziehen. Dieser Streifen deckt das ab. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 100%;          /* direkt oberhalb des Headers ansetzen */
+  height: 150px;         /* großzügig – ragt normalerweise unsichtbar aus dem Bild */
+  background: #ffffff;
+}
+
 /* … aber Logo, Navi & Burger schon */
 .header-inner {
   display: flex;
