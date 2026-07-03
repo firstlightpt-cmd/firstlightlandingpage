@@ -591,6 +591,25 @@ a   { color: inherit; }
   .contact-stage > .photo:nth-child(2) { width: 36vw; top: 10%; }
   .contact-stage > .photo:nth-child(3) { width: 36vw; bottom: 3%; }
   .contact-stage > .photo:nth-child(4) { width: 34vw; bottom: 4%; }
+
+  /* Weißer Verlauf am unteren Bildschirmrand – Gegenstück zum Header-Verlauf.
+     Verhindert auf dem iPhone, dass Inhalte sichtbar an der Safari-
+     Navigationsleiste vorbeiziehen. Reicht per safe-area bis unter den Rand. */
+  body::after {
+    content: "";
+    position: fixed;
+    left: 0; right: 0;
+    bottom: 0;
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
+    pointer-events: none;
+    background: linear-gradient(0deg,
+      #ffffff 0%, rgba(255,255,255,.98) 22%, rgba(255,255,255,.92) 40%,
+      rgba(255,255,255,.78) 56%, rgba(255,255,255,.52) 72%,
+      rgba(255,255,255,.26) 86%, rgba(255,255,255,0) 100%);
+  }
+  /* Wenn das Mobile-Menü offen ist, Verlauf ausblenden (wie den Header) */
+  body.menu-open::after { opacity: 0; }
 }
 
 @media (min-width: 900px) {
