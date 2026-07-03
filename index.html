@@ -50,6 +50,10 @@
        HEADER  (Logo + Navigation, auf allen Seiten gleich)
        ==================================================================== -->
   <header class="site-header">
+    <!-- Unsichtbarer 100vh-Hintergrund-Träger: Nur so malt iOS-26-Safari
+         den weißen Header-Hintergrund auch HINTER die Statusleiste
+         (Uhr/Dynamic Island). Nicht entfernen! Details: .header-veil in styles.css -->
+    <div class="header-veil" aria-hidden="true"></div>
     <div class="header-inner">
 
       <!-- LOGO — Bild austauschen: src ändern. Größe: .logo in styles.css -->

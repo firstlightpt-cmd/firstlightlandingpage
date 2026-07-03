@@ -103,27 +103,37 @@ a   { color: inherit; }
      (env(safe-area-inset-top) – funktioniert nur mit viewport-fit=cover
      im Meta-Tag der index.html). Am Desktop ist der Wert 0. */
   padding: calc(18px + env(safe-area-inset-top, 0px)) 0 44px;
-  /* Der Verlauf beginnt erst UNTER der Statusleiste (background-size),
-     der Streifen dahinter wird vom ::before darunter voll weiß gefüllt. */
-  background: linear-gradient(180deg,
-    #ffffff 0%, rgba(255,255,255,.98) 16%, rgba(255,255,255,.92) 32%,
-    rgba(255,255,255,.78) 48%, rgba(255,255,255,.52) 64%,
-    rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%)
-    bottom / 100% calc(100% - env(safe-area-inset-top, 0px)) no-repeat;
+  /* WICHTIG: Der weiße Hintergrund liegt NICHT hier, sondern auf dem
+     Kind-Element .header-veil (siehe unten) – iOS-26-Workaround. */
   transition: opacity .3s ease;
 }
-/* Voll-weißer Streifen exakt hinter der iPhone-Statusleiste (Uhr/Dynamic
-   Island), damit dort beim Scrollen kein Inhalt durchscheint. */
-.site-header::before {
-  content: "";
+
+/* Hintergrund-Träger des Headers (das <div class="header-veil"> in der
+   index.html). iOS-26-Safari weigert sich, fixierte Elemente hinter die
+   Statusleiste zu malen – AUSSER der fixierte Container hat ein Kind mit
+   100vh Höhe (so macht es Apple auf apple.com selbst). Deshalb ist dieses
+   Element bildschirmhoch, gemalt wird aber nur oben:
+     Schicht 1: voll weiß, exakt so hoch wie die Statusleiste
+     Schicht 2: der gewohnte weiße Verlauf (84px), direkt darunter        */
+.header-veil {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: env(safe-area-inset-top, 0px);
-  background: #ffffff;
+  height: 100vh;                 /* der eigentliche Trick – nicht ändern! */
+  pointer-events: none;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(180deg,
+      #ffffff 0%, rgba(255,255,255,.98) 16%, rgba(255,255,255,.92) 32%,
+      rgba(255,255,255,.78) 48%, rgba(255,255,255,.52) 64%,
+      rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% env(safe-area-inset-top, 0px), 100% 84px;
+  background-position: 0 0, 0 env(safe-area-inset-top, 0px);
 }
 
 /* … aber Logo, Navi & Burger schon */
 .header-inner {
+  position: relative;   /* liegt damit ÜBER dem .header-veil-Hintergrund */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -615,25 +625,6 @@ a   { color: inherit; }
   .contact-stage > .photo:nth-child(2) { width: 36vw; top: 10%; }
   .contact-stage > .photo:nth-child(3) { width: 36vw; bottom: 3%; }
   .contact-stage > .photo:nth-child(4) { width: 34vw; bottom: 4%; }
-
-  /* Weißer Verlauf am unteren Bildschirmrand – Gegenstück zum Header-Verlauf.
-     Verhindert auf dem iPhone, dass Inhalte sichtbar an der Safari-
-     Navigationsleiste vorbeiziehen. Reicht per safe-area bis unter den Rand. */
-  body::after {
-    content: "";
-    position: fixed;
-    left: 0; right: 0;
-    bottom: 0;
-    height: calc(64px + env(safe-area-inset-bottom, 0px));
-    z-index: 50;
-    pointer-events: none;
-    background: linear-gradient(0deg,
-      #ffffff 0%, rgba(255,255,255,.98) 22%, rgba(255,255,255,.92) 40%,
-      rgba(255,255,255,.78) 56%, rgba(255,255,255,.52) 72%,
-      rgba(255,255,255,.26) 86%, rgba(255,255,255,0) 100%);
-  }
-  /* Wenn das Mobile-Menü offen ist, Verlauf ausblenden (wie den Header) */
-  body.menu-open::after { opacity: 0; }
 }
 
 @media (min-width: 900px) {
