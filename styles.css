@@ -1,0 +1,710 @@
+/* ============================================================================
+   FIRST LIGHT — Stylesheet
+   ----------------------------------------------------------------------------
+   Aufbau dieser Datei (von oben nach unten):
+     1.  EINSTELLUNGEN   → Farben & Schriften zum schnellen Anpassen (:root)
+     2.  GRUNDLAGEN      → Reset, Body, Hintergrund
+     3.  HEADER & NAV    → Kopfzeile, Desktop-Navigation, Burger-Menü
+     4.  MOBILE MENÜ     → Vollbild-Overlay auf dem Handy
+     5.  BAUSTEINE       → wiederverwendbare Elemente (Buttons, Überschriften,
+                            Fotos, Animationen) – einmal definiert, überall genutzt
+     6.  SEITEN-LAYOUT   → Sections, Container, Hero
+     7.  HOME            → Reel, Zitat, Key Facts, Programm, Preise, Footer
+     8.  OUR TRIPS       → Trip-Blöcke
+     9.  ABOUT US        → Text + Foto-Raster
+     10. CONTACT         → schwebende Fotos + Kontaktbox
+     11. DESKTOP         → alles ab 900px Breite (Mehrspaltigkeit etc.)
+     12. BEWEGUNG AUS    → Animationen für Nutzer:innen mit "reduzierter Bewegung"
+
+   TIPP: Das meiste, was du ändern willst (Farben, Schriften), steht ganz oben
+   unter EINSTELLUNGEN. Texte und Bilder änderst du in der index.html.
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. EINSTELLUNGEN  —  hier die wichtigsten Stellschrauben
+   ============================================================================ */
+:root {
+  /* ----- Farben -------------------------------------------------------------
+     Ändere einen Hex-Wert (#......) und die Farbe wird überall im Layout
+     übernommen, wo diese Variable benutzt wird. */
+  --color-ink:        #211F18;  /* sehr dunkles Braun – Haupt-Überschriften & Text */
+  --color-body:       #3a352b;  /* Fließtext */
+  --color-muted:      #4a4334;  /* gedämpfter Text (Untertitel / Lede) */
+  --color-blue:       #123A5A;  /* Blau – Sektions-Überschriften & Preise */
+  --color-navy:       #0F2E48;  /* dunkles Marineblau – Footer-Hintergrund */
+  --color-accent:     #B97B30;  /* Bronze – kleine Labels & Hover-Farbe */
+  --color-gold:       #E0A24F;  /* Gold – Buttons */
+  --color-gold-hover: #ecb368;  /* Gold heller – Button beim Drüberfahren */
+  --color-gold-soft:  #D89A4A;  /* Gold im dunklen Footer */
+  --color-cream:      #F6EFE0;  /* Creme – heller Text auf dunklem Grund */
+  --color-cream-dim:  rgba(239,230,213,.78); /* Creme, leicht transparent */
+  --color-mono:       #8a7f6c;  /* graubraun – kleine Datums-/Mono-Labels */
+  --color-line:       rgba(18,58,90,.16);    /* feine Trennlinien */
+  --color-placeholder:#cdd6da;  /* Hintergrund leerer Foto-Platzhalter */
+
+  /* ----- Schriften ----------------------------------------------------------
+     Geladen werden Newsreader (Serife) & Archivo (serifenlos) per Google Fonts
+     im <head> der index.html. Willst du andere Schriften:
+       1. neuen <link> in der index.html eintragen
+       2. hier den Namen austauschen */
+  --font-serif: 'Newsreader', Georgia, serif;        /* Überschriften & Fließtext */
+  --font-sans:  'Archivo', Helvetica, Arial, sans-serif; /* Labels, Navi, Buttons */
+  --font-mono:  ui-monospace, 'SF Mono', Menlo, monospace; /* kleine Datums-Labels */
+
+  /* ----- Layout -------------------------------------------------------------- */
+  --maxwidth:  1080px;  /* maximale Breite des Inhalts auf großen Bildschirmen */
+  --radius:    16px;    /* Eck-Rundung der Fotos */
+  --shadow:    0 22px 44px -18px rgba(20,40,60,.5); /* Schatten unter den Fotos */
+}
+
+
+/* ============================================================================
+   2. GRUNDLAGEN
+   ============================================================================ */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  color: var(--color-ink);
+}
+
+/* Fixer Hintergrund: das Wasser-Foto bleibt beim Scrollen stehen.
+   Liegt hinter allen Inhalten (z-index:-1). Bild austauschen:
+   assets/web-bg.jpg ersetzen oder den Pfad unten ändern. */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #f4f6f7 url('assets/web-bg.jpg') center center / cover no-repeat;
+}
+
+img { display: block; max-width: 100%; }
+a   { color: inherit; }
+
+
+/* ============================================================================
+   3. HEADER & NAVIGATION
+   ============================================================================ */
+/* Kopfzeile bleibt oben fixiert. Der weiße Verlauf sorgt dafür, dass die
+   Navigation auch über hellen Fotos lesbar bleibt. */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  pointer-events: none;          /* Verlauf selbst nicht klickbar … */
+  padding: 18px 0 44px;
+  background: linear-gradient(180deg,
+    #ffffff 0%, rgba(255,255,255,.98) 16%, rgba(255,255,255,.92) 32%,
+    rgba(255,255,255,.78) 48%, rgba(255,255,255,.52) 64%,
+    rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%);
+  transition: opacity .3s ease;
+}
+/* … aber Logo, Navi & Burger schon */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.header-inner a,
+.header-inner nav,
+.header-inner button { pointer-events: auto; }
+
+.logo { height: 22px; width: auto; }   /* Größe des Logos im Header */
+
+/* Desktop-Navigation – auf dem Handy ausgeblendet (siehe Abschnitt 11) */
+.nav-desktop { display: none; gap: 30px; align-items: center; }
+.nav-link {
+  font: 600 12px/1 var(--font-sans);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.nav-link:hover,
+.nav-icon:hover { color: var(--color-accent); }
+.nav-icon { display: inline-flex; color: var(--color-ink); transition: color .2s ease; }
+
+/* Burger-Button (nur Handy). Die drei Balken haben Surfbrett-Form (clip-path). */
+.burger {
+  display: flex; flex-direction: column; gap: 6px;
+  background: none; border: none; padding: 6px; cursor: pointer;
+}
+.burger__bar {
+  display: block; width: 30px; height: 6px;
+  background: var(--color-ink);
+  clip-path: polygon(0 50%,16% 0,84% 0,100% 50%,84% 100%,16% 100%);
+}
+
+/* Wenn das Mobile-Menü offen ist, blenden wir den Header aus
+   (die Klasse .menu-open wird per JavaScript an <body> gesetzt). */
+.menu-open .site-header { opacity: 0; pointer-events: none; }
+
+
+/* ============================================================================
+   4. MOBILE MENÜ  (Vollbild-Overlay)
+   ============================================================================ */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(10,30,48,.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none; transform: translateY(-8px);
+  transition: opacity .38s ease, transform .38s ease;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding: 104px 32px 38px; text-align: center;
+}
+.mobile-menu.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.mobile-menu nav { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.mobile-menu__link {
+  font: 300 44px/1.18 var(--font-serif);
+  color: var(--color-cream);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.mobile-menu__link:hover { color: var(--color-gold); }
+.mobile-menu__social {
+  margin-top: auto;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  text-decoration: none; color: rgba(239,230,213,.7);
+  transition: color .2s ease;
+}
+.mobile-menu__social:hover { color: var(--color-gold); }
+.mobile-menu__social span { font: 600 12px var(--font-sans); letter-spacing: .12em; }
+
+
+/* ============================================================================
+   5. WIEDERVERWENDBARE BAUSTEINE
+   ============================================================================ */
+
+/* --- kleines Großbuchstaben-Label über Überschriften ("THE FIRST LIGHT …") - */
+.eyebrow {
+  font: 600 12px/1 var(--font-sans);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
+/* Variante mit etwas weniger Abstand (in Sektionen) */
+.eyebrow--section { letter-spacing: .18em; margin-bottom: 8px; }
+
+/* --- große Display-Überschrift auf der Startseite ("Surf Days.") ---------- */
+.h1-display {
+  margin: 0;
+  font: italic 300 clamp(64px, 17vw, 96px)/0.92 var(--font-serif);
+  letter-spacing: -.02em;
+  color: var(--color-ink);
+}
+/* --- Display-Überschrift der Unterseiten ("Our Trips." / "About Us." …) --- */
+.section-head {
+  margin: 0;
+  font: italic 300 clamp(56px, 15vw, 84px)/0.94 var(--font-serif);
+  letter-spacing: -.02em;
+  color: var(--color-ink);
+}
+/* --- Standard-Überschrift innerhalb einer Sektion ------------------------- */
+.h2 {
+  margin: 0 0 26px;
+  font: 400 30px/1.08 var(--font-serif);
+  color: var(--color-ink);
+}
+/* --- einleitender Untertitel unter den großen Überschriften --------------- */
+.lede {
+  font: 400 19px/1.35 var(--font-serif);
+  color: var(--color-muted);
+  max-width: 340px;
+}
+/* --- kleines Datums-/Mono-Label ("SEP 5–12 · 2026 · PORTUGAL") ------------ */
+.meta {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: .08em;
+  color: var(--color-mono);
+}
+/* --- großes Zitat --------------------------------------------------------- */
+.quote {
+  margin: 0;
+  font: italic 400 32px/1.18 var(--font-serif);
+  color: var(--color-blue);
+}
+
+/* --- Buttons (goldener "Pillen"-Button) ----------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font: 600 13px/1 var(--font-sans);
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: #211C12;
+  background: var(--color-gold);
+  padding: 15px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer; border: none;
+  transition: background .2s ease;
+}
+.btn:hover { background: var(--color-gold-hover); }
+
+/* --- Foto-Karte: einheitlicher Look für ALLE Bilder ----------------------- */
+/* Jedes <div class="photo"> enthält genau ein <img>. Bild austauschen =
+   in der index.html das src="…" des <img> ändern. Größe/Position der einzelnen
+   Fotos wird in den jeweiligen Abschnitten (Hero, Trips, …) gesetzt. */
+.photo {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;            /* füllt die Karte ohne Verzerrung */
+}
+/* leerer Platzhalter, bis ein echtes Foto eingesetzt wird */
+.photo--placeholder {
+  background: var(--color-placeholder);
+  display: flex; align-items: center; justify-content: center;
+}
+.photo--placeholder::after {
+  content: "photo";
+  font: 500 9px/1 var(--font-mono);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #5b6b73;
+}
+
+/* --- Schwebe-Animation der Fotos -----------------------------------------
+   Fünf leicht unterschiedliche Bewegungen (a–e), damit die Fotos nicht
+   synchron wippen. Auf ein Foto wird z. B. class="photo float-a" gesetzt. */
+@keyframes float-a { from { transform: rotate(-4deg)  translate(0,0); } to { transform: rotate(-2.4deg) translate(5px,-16px); } }
+@keyframes float-b { from { transform: rotate(5deg)   translate(0,0); } to { transform: rotate(3.2deg)  translate(-7px,-13px); } }
+@keyframes float-c { from { transform: rotate(3deg)   translate(0,0); } to { transform: rotate(5deg)    translate(6px,-11px); } }
+@keyframes float-d { from { transform: rotate(-2deg)  translate(0,0); } to { transform: rotate(-4deg)   translate(-6px,-15px); } }
+@keyframes float-e { from { transform: rotate(1.5deg) translate(0,0); } to { transform: rotate(-1deg)   translate(5px,-9px); } }
+.float-a { animation: float-a 7s   ease-in-out infinite alternate; }
+.float-b { animation: float-b 8.5s ease-in-out infinite alternate; }
+.float-c { animation: float-c 7.6s ease-in-out infinite alternate; }
+.float-d { animation: float-d 9.4s ease-in-out infinite alternate; }
+.float-e { animation: float-e 7.9s ease-in-out infinite alternate; }
+
+/* --- Einblenden beim Scrollen --------------------------------------------
+   Elemente mit class="reveal" starten unsichtbar und gleiten beim Scrollen
+   herein. Das JavaScript fügt dazu die Klasse .is-visible hinzu. */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal--d1 { transition-delay: .08s; }  /* leicht verzögert (Staffelung) */
+.reveal--d2 { transition-delay: .12s; }
+
+
+/* ============================================================================
+   6. SEITEN-LAYOUT
+   ============================================================================ */
+/* Eine "Seite" = ein Abschnitt der Single-Page-Site. Per JavaScript wird
+   immer nur eine sichtbar geschaltet (Home / Trips / About / Contact). */
+.page[hidden] { display: none; }
+
+/* zentrierter Inhalts-Container mit Innenabstand */
+.wrap {
+  width: 100%;
+  max-width: var(--maxwidth);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.wrap--narrow { max-width: 760px; }   /* schmaler (Preise, Newsletter) */
+.wrap--cta    { max-width: 820px; }   /* Schluss-Aufruf */
+
+/* vertikaler Abstand zwischen den Sektionen */
+.section { padding: 52px 0; }
+.section--tight-top    { padding-top: 34px; }
+.section--tight-bottom { padding-bottom: 38px; }
+
+/* Hero = der große Kopfbereich oben auf jeder Seite */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  gap: clamp(34px, 6vh, 68px);
+  padding: 120px 22px 60px;     /* oben Platz für den fixierten Header */
+  overflow: hidden;
+}
+.hero--sub { min-height: 66vh; gap: clamp(28px,5vh,52px); padding-bottom: 48px; }
+.hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+/* Reihe schwebender Fotos im Hero */
+.photo-row {
+  display: flex; justify-content: center; align-items: flex-start;
+  gap: clamp(12px,1.8vw,26px);
+  width: 100%; max-width: 1040px; flex-wrap: nowrap;
+}
+.photo-row--sub { max-width: 520px; }
+
+
+/* ============================================================================
+   7. HOME
+   ============================================================================ */
+
+/* --- Hero-Fotos der Startseite (4 Stück, leicht versetzt) ----------------- */
+.hero-photos-home .photo:nth-child(1) { width: clamp(112px,19vw,238px); aspect-ratio: 5/6;   margin-top: 40px; }
+.hero-photos-home .photo:nth-child(2) { width: clamp(94px,16vw,196px);  aspect-ratio: 1/1;   margin-top: 8px; }
+.hero-photos-home .photo:nth-child(3) { width: clamp(110px,19vw,228px); aspect-ratio: 5/6;   margin-top: 56px; }
+.hero-photos-home .photo:nth-child(4) { width: clamp(88px,14.5vw,186px);aspect-ratio: 14/15; margin-top: 22px; }
+
+/* --- Reel / Video ---------------------------------------------------------
+   Hochkant-Videofläche. Noch ist hier ein Platzhalter. Um ein Video
+   einzusetzen, in der index.html ein src in das <video>-Tag eintragen, z. B.:
+       <video … src="assets/dein-clip.mp4"></video>
+   Der Play-Platzhalter darüber kann dann entfernt werden. */
+.reel-wrap { padding: 0; }
+.reel {
+  position: relative;
+  width: 100%; aspect-ratio: 9/16;
+  overflow: hidden; background: #d4dadd;
+}
+.reel video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+.reel__overlay {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+}
+.reel__play {
+  width: 66px; height: 66px; border-radius: 999px;
+  background: rgba(255,255,255,.92);
+  display: flex; align-items: center; justify-content: center;
+}
+.reel__play::after {  /* das Play-Dreieck */
+  content: ""; width: 0; height: 0;
+  border-style: solid; border-width: 11px 0 11px 19px;
+  border-color: transparent transparent transparent #4a5a62;
+  margin-left: 4px;
+}
+.reel__hint { font: 500 10px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: #5b6b73; }
+
+/* --- Crew-Fotoreihe (3 nebeneinander) ------------------------------------- */
+.crew { display: flex; gap: 12px; margin-top: 34px; }
+.crew .photo { flex: 1; height: 128px; }
+
+/* --- Key Facts (Raster aus kleinen Kästchen) ------------------------------ */
+.keyfacts {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(18,58,90,.14);
+  border: 1px solid rgba(18,58,90,.14);
+  border-radius: 14px; overflow: hidden;
+}
+.keyfact { background: #fff; padding: 22px 20px; }
+.keyfact__label { font: 600 10px/1 var(--font-sans); letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 9px; }
+.keyfact__value { font: 400 21px/1.15 var(--font-serif); color: var(--color-blue); }
+
+/* --- Programm (nummerierte Liste) ----------------------------------------- */
+.programme { border-top: 1px solid var(--color-line); }
+.programme__item {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--color-line);
+  break-inside: avoid;          /* hält eine Zeile in einer Spalte zusammen */
+}
+.programme__num  { font: 500 11px/1 var(--font-mono); color: var(--color-accent); width: 22px; }
+.programme__name { font: 400 23px/1 var(--font-serif); color: var(--color-blue); }
+.programme__name--italic { font-style: italic; }
+
+/* --- Preise --------------------------------------------------------------- */
+.price-card { border: 1px solid var(--color-line); border-radius: 14px; overflow: hidden; background: #fff; }
+.price-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(18,58,90,.12);
+}
+.price-row:last-child { border-bottom: none; }
+.price-row__label { font: 400 19px/1.2 var(--font-serif); color: var(--color-body); }
+.price-row__value { font: 500 24px/1 var(--font-serif); color: var(--color-blue); white-space: nowrap; }
+
+/* --- Schluss-Aufruf (Closing CTA) ----------------------------------------- */
+.closing { padding: 6px 0 64px; text-align: center; }
+.closing h2 { margin: 0 0 36px; font: italic 300 clamp(40px,5vw,64px)/1.04 var(--font-serif); color: var(--color-ink); }
+.closing .meta { margin: 0 0 24px; }
+
+/* --- Footer (dunkelblau) -------------------------------------------------- */
+.footer { background: var(--color-navy); padding: 56px 0 44px; color: var(--color-cream); }
+.footer .eyebrow { color: var(--color-gold-soft); margin-bottom: 10px; }
+.footer h2 { margin: 0 0 14px; font: 400 26px/1.12 var(--font-serif); color: var(--color-cream); }
+.footer p  { margin: 0 0 26px; font: 400 15px/1.5 var(--font-serif); color: var(--color-cream-dim); max-width: 440px; }
+.footer-social { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-cream); transition: color .2s ease; }
+.footer-social:hover { color: var(--color-gold-soft); }
+.footer-social span { font: 600 12px var(--font-sans); letter-spacing: .06em; }
+/* zentriert den Instagram-Link unter dem Newsletter-Feld */
+.footer-social-wrap { display: flex; justify-content: center; margin-top: 22px; }
+
+/* --- Newsletter-Formular (im Footer) -------------------------------------- */
+.newsletter { display: flex; gap: 8px; }
+.newsletter input {
+  flex: 1; min-width: 0;
+  font: 400 14px var(--font-sans);
+  padding: 13px 15px; border-radius: 10px;
+  border: 1px solid rgba(239,230,213,.28);
+  background: transparent; color: var(--color-cream);
+}
+.newsletter button {
+  font: 600 12px var(--font-sans); letter-spacing: .06em;
+  padding: 13px 18px; border-radius: 10px; border: none;
+  background: var(--color-gold-soft); color: #1a1207;
+  cursor: pointer; white-space: nowrap;
+}
+/* Erfolgsmeldung, die nach dem Absenden das Formular ersetzt */
+.newsletter__done { margin: 0; font: 400 15px/1.5 var(--font-serif); color: var(--color-cream); }
+/* Spam-Falle: komplett unsichtbar (nur Bots tragen hier etwas ein) */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+
+/* ============================================================================
+   8. OUR TRIPS
+   ============================================================================ */
+
+/* --- Hero-Fotos der Trips-Seite (2 Stück) --------------------------------- */
+.hero-photos-trips .photo:nth-child(1) { width: clamp(128px,20vw,224px); aspect-ratio: 4/5; margin-top: 30px; }
+.hero-photos-trips .photo:nth-child(2) { width: clamp(118px,18vw,206px); aspect-ratio: 5/6; margin-top: 0; }
+
+/* --- ein einzelner Trip-Block --------------------------------------------- */
+/* Auf dem Handy: Text zuerst, Foto-Cluster zentriert DARUNTER (kein Überlappen).
+   Auf dem Desktop wird daraus ein 2-Spalten-Raster (siehe Abschnitt 11). */
+.trip { position: relative; padding: 0 28px; }
+.trip-copy { position: relative; z-index: 2; }
+.trip-copy .eyebrow,
+.trip-copy .label { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--color-accent); margin-bottom: 8px; }
+.trip-copy h2 { margin: 0 0 8px; font: 400 clamp(34px,4.5vw,52px)/1.02 var(--font-serif); color: var(--color-blue); }
+.trip-copy p  { margin: 0; font: italic 400 18px/1.4 var(--font-serif); color: var(--color-muted); max-width: 300px; }
+
+/* Foto-Cluster eines Trips (drei überlappende Fotos).
+   Handy: großer, dichter Cluster, zentriert unter dem Text (überlagert den Text
+   nicht). Höhe kommt aus aspect-ratio, damit alles sauber mitskaliert. */
+.trip-stage { position: relative; width: min(320px, 82vw); aspect-ratio: 300 / 460; margin: 26px auto 0; }
+
+/* Positionen der drei Fotos – Standard-Ausrichtung (Trip 01 & 03) */
+.trip:not(.trip--rev) .trip-stage .photo:nth-child(1) { position: absolute; right: 0;  top: 0;   width: 62%; aspect-ratio: 4/5; }
+.trip:not(.trip--rev) .trip-stage .photo:nth-child(2) { position: absolute; left: 0;   top: 33%; width: 56%; aspect-ratio: 1/1; }
+.trip:not(.trip--rev) .trip-stage .photo:nth-child(3) { position: absolute; right: 8%; top: 54%; width: 52%; aspect-ratio: 4/5; }
+/* gespiegelte Ausrichtung (Trip 02) */
+.trip--rev .trip-stage .photo:nth-child(1) { position: absolute; left: 0;   top: 0;   width: 62%; aspect-ratio: 4/5; }
+.trip--rev .trip-stage .photo:nth-child(2) { position: absolute; right: 0;  top: 33%; width: 56%; aspect-ratio: 1/1; }
+.trip--rev .trip-stage .photo:nth-child(3) { position: absolute; left: 8%;  top: 54%; width: 52%; aspect-ratio: 4/5; }
+
+/* --- Newsletter-Footer der Trips-Seite ------------------------------------ */
+.footer--center { padding: 50px 0 46px; }
+.footer--center .wrap { text-align: center; }
+.footer--center .eyebrow { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--color-gold-soft); margin-bottom: 10px; }
+.footer--center h2 { margin: 0 0 12px; font: 400 clamp(26px,3.4vw,38px)/1.12 var(--font-serif); }
+.footer--center p  { margin: 0 auto 22px; }
+.footer--center .newsletter { max-width: 460px; margin: 0 auto; }
+
+
+/* ============================================================================
+   9. ABOUT US
+   ============================================================================ */
+
+/* --- Hero-Fotos der About-Seite (2 Stück) --------------------------------- */
+.hero-photos-about .photo:nth-child(1) { width: clamp(122px,19vw,214px);   aspect-ratio: 4/5;  margin-top: 30px; }
+.hero-photos-about .photo:nth-child(2) { width: clamp(120px,18.5vw,208px); aspect-ratio: 9/10; margin-top: 0; }
+
+/* --- Textspalte ----------------------------------------------------------- */
+.about-text p { margin: 0 0 18px; font: 400 18px/1.55 var(--font-serif); color: var(--color-body); }
+.about-text p:last-child { margin-bottom: 0; }
+
+/* --- Foto-Raster neben dem Text (2 überlappende Fotos) -------------------- */
+.about-photos { position: relative; min-height: 220px; margin-top: 14px; }
+.about-photos .photo:nth-child(1) { position: absolute; left: 4%;  top: 0;    width: 46%; aspect-ratio: 4/5; }
+.about-photos .photo:nth-child(2) { position: absolute; right: 4%; top: 48px; width: 46%; aspect-ratio: 9/8; }
+
+
+/* ============================================================================
+   10. CONTACT
+   ============================================================================ */
+.contact-stage {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 96px 30px 48px; overflow: hidden;
+}
+/* vier schwebende Fotos in den Ecken */
+.contact-stage > .photo:nth-child(1) { position: absolute; left: 6%;  top: 16%;    width: clamp(120px,24vw,200px); aspect-ratio: 4/5; }
+.contact-stage > .photo:nth-child(2) { position: absolute; right: 6%; top: 20%;    width: clamp(110px,22vw,190px); aspect-ratio: 4/5; }
+.contact-stage > .photo:nth-child(3) { position: absolute; left: 14%; bottom: 14%; width: clamp(110px,22vw,185px); aspect-ratio: 6/7; }
+.contact-stage > .photo:nth-child(4) { position: absolute; right: 13%;bottom: 16%; width: clamp(105px,21vw,175px); aspect-ratio: 7/8; }
+
+.contact-box { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+.contact-box p { margin: 16px 0 30px; font: 400 19px/1.35 var(--font-serif); color: var(--color-muted); max-width: 300px; }
+.contact-box .btn { margin-bottom: 18px; }
+.contact-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-blue); transition: color .2s ease; }
+.contact-link:hover { color: var(--color-accent); }
+.contact-link span { font: 600 12px var(--font-sans); letter-spacing: .08em; }
+
+
+/* ============================================================================
+   11. DESKTOP  —  alles ab 900px Bildschirmbreite
+   ----------------------------------------------------------------------------
+   Hier wird das mobile (einspaltige) Layout zum mehrspaltigen Desktop-Layout.
+   Darunter (Handy) gelten die Regeln aus den Abschnitten oben.
+   ============================================================================ */
+
+/* ============ HANDY-FEINSCHLIFF: Fotos größer / dichter (< 900px) ============ */
+@media (max-width: 899px) {
+  /* Startseiten-Hero: 2×2-Raster, groß & leicht überlappend (Collage-Look) */
+  .hero-photos-home {
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: start; gap: 0;
+    width: calc(100% + 16px); max-width: 430px; margin: 0 -8px;
+  }
+  .hero-photos-home .photo { width: 108% !important; margin-top: 0 !important; }
+  .hero-photos-home .photo:nth-child(1) { z-index: 2; }
+  .hero-photos-home .photo:nth-child(2) { margin-left: -8% !important; margin-top: 26px !important; z-index: 1; }
+  .hero-photos-home .photo:nth-child(3) { margin-top: -20px !important; z-index: 3; }
+  .hero-photos-home .photo:nth-child(4) { margin-left: -8% !important; margin-top: 4px !important; z-index: 2; }
+
+  /* Trips-Hero: zwei deutlich größere Fotos nebeneinander */
+  .hero-photos-trips .photo:nth-child(1) { width: 43vw; }
+  .hero-photos-trips .photo:nth-child(2) { width: 40vw; }
+
+  /* About-Hero: zwei größere Fotos nebeneinander */
+  .hero-photos-about .photo:nth-child(1) { width: 43vw; }
+  .hero-photos-about .photo:nth-child(2) { width: 41vw; }
+
+  /* Crew-Fotos (Startseite) höher */
+  .crew { gap: 10px; }
+  .crew .photo { height: 150px; }
+
+  /* About: die beiden Fotos größer */
+  .about-photos { min-height: 280px; }
+  .about-photos .photo:nth-child(1) { width: 52%; }
+  .about-photos .photo:nth-child(2) { width: 52%; top: 64px; }
+
+  /* Trips: kompakter – weniger Abstand zwischen Foto-Cluster und nächstem Trip */
+  [data-page="trips"] .section { padding: 24px 0; }
+
+  /* Kontakt: Eck-Fotos etwas größer UND weiter aus der Mitte gerückt
+     (obere zwei höher, untere zwei tiefer), damit sie die Buttons nicht überlappen */
+  .contact-stage > .photo:nth-child(1) { width: 38vw; top: 8%; }
+  .contact-stage > .photo:nth-child(2) { width: 36vw; top: 10%; }
+  .contact-stage > .photo:nth-child(3) { width: 36vw; bottom: 3%; }
+  .contact-stage > .photo:nth-child(4) { width: 34vw; bottom: 4%; }
+}
+
+@media (min-width: 900px) {
+  /* Navigation umschalten: Burger weg, Desktop-Navi sichtbar */
+  .burger { display: none; }
+  .nav-desktop { display: flex; }
+  .header-inner { padding: 0 44px; }
+
+  /* Hero größer & zentriert */
+  .hero { min-height: max(82vh, 600px); padding: 110px 24px 7vh; }
+  .page[data-page="home"] .hero { min-height: max(92vh, 780px); }
+  .hero-copy { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .h1-display  { font-size: clamp(96px, 9vw, 156px); }
+  .section-head{ font-size: clamp(54px, 6vw, 92px); }
+  .lede { font-size: 24px; max-width: 520px; }
+
+  /* mehr Luft zwischen den Sektionen */
+  .section { padding: 96px 0; }
+  .section--tight-bottom { padding-bottom: 34px; }
+  .section--tight-top    { padding-top: 30px; }
+
+  /* größere Überschriften & Zitat */
+  .h2 { font-size: 40px; }
+  .quote { font-size: 46px; text-align: center; max-width: 900px; margin: 0 auto; }
+
+  /* Crew-Fotos höher, Key Facts dreispaltig, Programm zweispaltig */
+  .crew { gap: 22px; }
+  .crew .photo { height: 280px; }
+  .keyfacts { grid-template-columns: repeat(3, 1fr); }
+  .programme { columns: 2; column-gap: 56px; }
+
+  /* Reel mittig & schmaler */
+  .reel-wrap { padding: 40px 0; display: flex; justify-content: center; }
+  .reel { width: 430px; border-radius: 26px; }
+
+  /* Footer & About zweispaltig */
+  .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; }
+  .about-grid  { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
+
+  /* Hero-Foto-Reihen etwas mehr Abstand */
+  .photo-row { gap: clamp(16px,1.8vw,30px); }
+
+  /* Kontaktseite höher */
+  .contact-stage { min-height: max(86vh, 800px); }
+
+  /* ---- Trips: 2-Spalten-Raster (Text | Foto-Cluster) -------------------- */
+  .trip {
+    display: grid; grid-template-columns: 1.05fr .95fr;
+    align-items: center; gap: clamp(24px, 3.2vw, 60px);
+    min-height: 560px;
+  }
+  .trip--rev .trip-copy { order: 2; }
+  .trip-stage { position: relative; height: 520px; width: 100%; max-width: 500px; top: auto; right: auto; left: auto; margin-top: 0; }
+  .trip:not(.trip--rev) .trip-stage { margin-right: auto; margin-left: 0; }
+  .trip--rev          .trip-stage  { margin-left: auto; margin-right: 0; }
+  /* Fotos größer und neu gestapelt (Position links/rechts bleibt) */
+  .trip-stage .photo:nth-child(1) { width: 52%; top: 0; }
+  .trip-stage .photo:nth-child(2) { width: 44%; top: 140px; }
+  .trip-stage .photo:nth-child(3) { width: 40%; top: 250px; }
+  /* Text bündig zur Innenkante ausrichten */
+  .trip:not(.trip--rev) .trip-copy { text-align: right; padding-right: 18px; }
+  .trip:not(.trip--rev) .trip-copy p { margin-left: auto; }
+  .trip--rev .trip-copy { text-align: left; padding-left: 18px; }
+  .trip--rev .trip-copy p { margin-left: 0; margin-right: auto; }
+}
+
+/* ---- mittlere Breite (Tablet/schmaler Desktop): Trips wieder stapeln ----- */
+@media (min-width: 900px) and (max-width: 1099px) {
+  .trip { grid-template-columns: 1fr; gap: 6px; justify-items: center; min-height: 0; padding-top: 12px; padding-bottom: 28px; }
+  .trip .trip-copy { order: 1; text-align: center; padding: 0; }
+  .trip .trip-copy p { margin: 0 auto; }
+  .trip .trip-stage { order: 2; margin: 6px auto 0; max-width: 440px; height: 520px; }
+  .about-grid { grid-template-columns: 1fr; gap: 8px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 26px; }
+  .contact-stage > .photo:nth-child(3) { left: 4%;  bottom: 9%; }
+  .contact-stage > .photo:nth-child(4) { right: 4%; bottom: 11%; }
+}
+
+/* ---- sehr breite Bildschirme: Inhalt darf breiter werden ----------------- */
+@media (min-width: 1500px) {
+  :root { --maxwidth: 1240px; }
+}
+
+
+/* ============================================================================
+   12. (bewusst leer)
+   ----------------------------------------------------------------------------
+   Früher wurde hier die System-Einstellung "Bewegung reduzieren" respektiert.
+   Auf Wunsch laufen die Animationen jetzt bei ALLEN Besuchern – auch wenn am
+   Gerät "Bewegung reduzieren" aktiv ist.
+   ============================================================================ */
+
+
+/* ============================================================================
+   13. INTRO / LADESCREEN  (handgezeichnetes Herz)
+   ----------------------------------------------------------------------------
+   Deckt beim Laden kurz den Bildschirm ab: das Herz zeichnet sich selbst und
+   der Screen blendet danach aus. Läuft nur einmal pro Seitenaufruf, rein per
+   CSS (kein JavaScript).
+     • Farbe Hintergrund → background unten
+     • Farbe Herz        → stroke="#F6EFE0" im <svg> in der index.html
+     • Größe Herz        → width bei .loader__heart
+     • Tempo/Dauer       → die Zeiten in den beiden animation-Zeilen
+   ============================================================================ */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: #0a1f30;                 /* dunkles Marineblau (wie Menü/Footer) */
+  animation: loader-out .28s ease .72s forwards;   /* Ausblenden: Start bei .72s */
+}
+.loader__heart { width: clamp(78px, 22vw, 112px); height: auto; overflow: visible; }
+.loader__heart path {
+  stroke-dasharray: 1; stroke-dashoffset: 1;                    /* Linie erst „leer" … */
+  animation: heart-draw .6s cubic-bezier(.65,0,.35,1) .03s forwards; /* … zeichnet flott */
+}
+@keyframes heart-draw { to { stroke-dashoffset: 0; } }
+@keyframes loader-out { to { opacity: 0; visibility: hidden; } }
