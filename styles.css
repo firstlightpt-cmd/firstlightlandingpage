@@ -29,17 +29,17 @@
      Ändere einen Hex-Wert (#......) und die Farbe wird überall im Layout
      übernommen, wo diese Variable benutzt wird. */
   --color-ink:        #211F18;  /* sehr dunkles Braun – Haupt-Überschriften & Text */
-  --color-body:       #3a352b;  /* Fließtext */
-  --color-muted:      #4a4334;  /* gedämpfter Text (Untertitel / Lede) */
+  --color-body:       var(--color-onyx-grey);  /* Fließtext → Onyx Grey */
+  --color-muted:      var(--color-onyx-grey);  /* gedämpfter Text (Untertitel / Lede) → Onyx Grey */
   --color-blue:       #123A5A;  /* Blau – Sektions-Überschriften & Preise */
-  --color-navy:       #0F2E48;  /* dunkles Marineblau – Footer-Hintergrund */
-  --color-accent:     #B97B30;  /* Bronze – kleine Labels & Hover-Farbe */
-  --color-gold:       #E0A24F;  /* Gold – Buttons */
-  --color-gold-hover: #ecb368;  /* Gold heller – Button beim Drüberfahren */
-  --color-gold-soft:  #D89A4A;  /* Gold im dunklen Footer */
-  --color-cream:      #F6EFE0;  /* Creme – heller Text auf dunklem Grund */
-  --color-cream-dim:  rgba(239,230,213,.78); /* Creme, leicht transparent */
-  --color-mono:       #8a7f6c;  /* graubraun – kleine Datums-/Mono-Labels */
+  --color-navy:       var(--color-ocean-blue); /* Footer-Hintergrund → Ocean Blue */
+  --color-accent:     var(--color-sunrise-orange); /* kleine Labels & Hover → Sunrise Orange */
+  --color-gold:       var(--color-sunrise-orange); /* Buttons → Sunrise Orange */
+  --color-gold-hover: #f5813a;  /* Sunrise Orange heller – Button beim Drüberfahren */
+  --color-gold-soft:  var(--color-sunrise-orange); /* Button im dunklen Footer → Sunrise Orange */
+  --color-cream:      var(--color-sea-salt);  /* heller Text auf dunklem Grund → Sea Salt */
+  --color-cream-dim:  rgba(245,241,232,.78);  /* Sea Salt, leicht transparent */
+  --color-mono:       var(--color-onyx-grey);  /* kleine Datums-/Mono-Labels → Onyx Grey */
   --color-line:       rgba(18,58,90,.16);    /* feine Trennlinien */
   --color-placeholder:#cdd6da;  /* Hintergrund leerer Foto-Platzhalter */
 
@@ -212,7 +212,7 @@ a   { color: inherit; }
 .mobile-menu::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
-  background: rgba(10,30,48,.96);
+  background: rgba(31,44,67,.96);   /* Ocean Blue (#1F2C43), leicht transparent */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -769,7 +769,7 @@ a   { color: inherit; }
 .loader::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
-  background: #0a1f30;                 /* dunkles Marineblau (wie Menü/Footer) */
+  background: var(--color-ocean-blue); /* Ocean Blue (wie Menü/Footer) */
 }
 .loader__heart { width: clamp(78px, 22vw, 112px); height: auto; overflow: visible; }
 .loader__heart path {
