@@ -662,17 +662,27 @@ a   { color: inherit; }
 
 /* ============ HANDY-FEINSCHLIFF: Fotos größer / dichter (< 900px) ============ */
 @media (max-width: 899px) {
-  /* Startseiten-Hero: 2×2-Raster, groß & leicht überlappend (Collage-Look) */
-  .hero-photos-home {
-    display: grid; grid-template-columns: 1fr 1fr;
-    align-items: start; gap: 0;
-    width: calc(100% + 16px); max-width: 430px; margin: 0 -8px;
+  /* Startseiten-Hero: 2 Fotos oben – Überschrift & CTA in der Mitte –
+     2 Fotos unten. Der Foto-Container wird per display:contents aufgelöst,
+     dadurch lassen sich die vier Fotos einzeln im Raster des .hero
+     anordnen und der Text rutscht dazwischen (nur Handy; am Desktop
+     bleibt die gewohnte Reihe über dem Text). */
+  [data-page="home"] .hero {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 215px));
+    justify-content: center;
+    align-content: center;
+    align-items: start;
+    row-gap: clamp(20px, 3.5vh, 36px);
+    column-gap: 0;
   }
+  .hero-photos-home { display: contents; }
   .hero-photos-home .photo { width: 108% !important; margin-top: 0 !important; }
-  .hero-photos-home .photo:nth-child(1) { z-index: 2; }
-  .hero-photos-home .photo:nth-child(2) { margin-left: -8% !important; margin-top: 26px !important; z-index: 1; }
-  .hero-photos-home .photo:nth-child(3) { margin-top: -20px !important; z-index: 3; }
-  .hero-photos-home .photo:nth-child(4) { margin-left: -8% !important; margin-top: 4px !important; z-index: 2; }
+  .hero-photos-home .photo:nth-child(1) { order: 1; z-index: 2; }
+  .hero-photos-home .photo:nth-child(2) { order: 2; margin-left: -8% !important; margin-top: 26px !important; z-index: 1; }
+  [data-page="home"] .hero-copy { order: 3; grid-column: 1 / -1; justify-self: center; }
+  .hero-photos-home .photo:nth-child(3) { order: 4; z-index: 3; }
+  .hero-photos-home .photo:nth-child(4) { order: 5; margin-left: -8% !important; margin-top: 22px !important; z-index: 2; }
 
   /* Trips-Hero: zwei deutlich größere Fotos nebeneinander */
   .hero-photos-trips .photo:nth-child(1) { width: 43vw; }
