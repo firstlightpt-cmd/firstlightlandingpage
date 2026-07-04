@@ -559,11 +559,12 @@ a   { color: inherit; }
 .trip--rev .trip-stage .photo:nth-child(3) { position: absolute; left: 8%;  top: 54%; width: 52%; aspect-ratio: 4/5; }
 
 /* --- Newsletter-Footer der Trips-Seite ------------------------------------ */
-/* --- Unten links im Footer: Instagram-Symbol + Imprint nebeneinander ------ */
+/* --- Instagram-Symbol + Imprint: rechts unten im Footer, auf einer Höhe --- */
 .footer-legal {
   margin-top: 44px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 18px;
 }
 .footer-legal a {
@@ -686,8 +687,10 @@ a   { color: inherit; }
   /* Trips: kompakter – weniger Abstand zwischen Foto-Cluster und nächstem Trip */
   [data-page="trips"] .section { padding: 24px 0; }
 
-  /* About: weniger Luft zwischen Hero-Text und dem Fließtext darunter */
-  [data-page="about"] .hero--sub { min-height: auto; padding-bottom: 10px; }
+  /* About & Trips: Hero kompakt, gleicher (kleiner) Abstand zum Inhalt darunter */
+  [data-page="about"] .hero--sub,
+  [data-page="trips"] .hero--sub { min-height: auto; padding-bottom: 0; }
+  [data-page="about"] .section { padding: 24px 0; }  /* wie bei Trips */
 
   /* Kontakt: Eck-Fotos etwas größer UND weiter aus der Mitte gerückt
      (obere zwei höher, untere zwei tiefer), damit sie die Buttons nicht überlappen */
@@ -730,7 +733,12 @@ a   { color: inherit; }
   .reel-wrap { padding: 40px 0; display: flex; justify-content: center; }
   .reel { width: 430px; border-radius: 26px; }
 
-  /* Footer & About zweispaltig */
+  /* Footer (Home): Inhalt mittig, Newsletter-Formular zentriert */
+  .footer .wrap > .reveal { text-align: center; }
+  .footer p { margin-left: auto; margin-right: auto; }
+  .footer .newsletter { margin: 0 auto; }
+
+  /* About zweispaltig */
   .about-grid  { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
 
   /* Hero-Foto-Reihen etwas mehr Abstand */
