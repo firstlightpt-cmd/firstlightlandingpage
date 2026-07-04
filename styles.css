@@ -671,11 +671,15 @@ a   { color: inherit; }
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 215px));
     justify-content: center;
-    align-content: center;
+    align-content: start;   /* oben beginnen – nicht mittig überlaufen lassen */
     align-items: start;
     row-gap: clamp(20px, 3.5vh, 36px);
     column-gap: 0;
+    padding-top: 102px;  /* obere Fotos näher an den Header rücken
+                            (unter dem weißen Verlauf bleiben sie sichtbar) */
   }
+  /* mehr Luft über und unter dem Textblock */
+  [data-page="home"] .hero-copy { margin: 20px 0; }
   .hero-photos-home { display: contents; }
   .hero-photos-home .photo { width: 108% !important; margin-top: 0 !important; }
   .hero-photos-home .photo:nth-child(1) { order: 1; z-index: 2; }
