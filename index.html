@@ -232,17 +232,12 @@
 
       <!-- ---- FOOTER (Home) ---- -->
       <footer class="footer">
-        <div class="wrap footer-grid">
+        <div class="wrap">
+          <!-- Ein zusammenhängender Block: von den Trips zum Newsletter -->
           <div class="reveal">
             <div class="eyebrow">Beyond the festival</div>
             <h2>Our trips — advanced surf explorations.</h2>
-            <p>20 people, all included, lots of programme, proper adventures along wild coastlines. That's what we're up to when it's not festival season.</p>
-          </div>
-          <div class="reveal reveal--d1">
-            <!-- Hinweis auf den Newsletter: spannt den Bogen von den Trips -->
-            <div class="eyebrow">Newsletter</div>
-            <h2>Don't miss out.</h2>
-            <p>New trips, dates and free spots always land in the newsletter first. Drop your email and stay in the loop.</p>
+            <p>20 people, all included, lots of programme, proper adventures along wild coastlines. Everything new — trips, dates, free spots — always lands in the newsletter first. Drop your email and don't miss out.</p>
             <!-- Newsletter → MailerLite. Die Verbindung stellt script.js her;
                  du musst dort nur EINMAL deine MailerLite-URL eintragen
                  (Konstante MAILERLITE_URL ganz oben in script.js). -->
@@ -252,17 +247,14 @@
               <!-- Spam-Falle: für Menschen unsichtbar, nur Bots füllen sie aus -->
               <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field">
             </form>
-            <!-- Instagram-Link (nur Symbol), mittig unter dem E-Mail-Feld -->
-            <div class="footer-social-wrap">
-              <a class="footer-social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="First Light auf Instagram">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
-              </a>
-            </div>
           </div>
-        </div>
-        <!-- Rechtliches: Link zur Imprint-Seite -->
-        <div class="footer-legal">
-          <a href="#" data-goto="imprint">Imprint</a>
+          <!-- Unten links: Instagram-Symbol + Imprint-Link nebeneinander -->
+          <div class="footer-legal">
+            <a class="footer-social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="First Light auf Instagram">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+            </a>
+            <a href="#" data-goto="imprint">Imprint</a>
+          </div>
         </div>
       </footer>
     </section>

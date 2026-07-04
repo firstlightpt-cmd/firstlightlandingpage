@@ -290,7 +290,7 @@ a   { color: inherit; }
 .quote {
   margin: 0;
   font: italic 400 32px/1.18 var(--font-serif);
-  color: var(--color-blue);
+  color: var(--color-ink);   /* das übliche "Schwarz" der Überschriften */
 }
 
 /* --- Buttons (goldener "Pillen"-Button) ----------------------------------- */
@@ -482,7 +482,7 @@ a   { color: inherit; }
   border-bottom: 1px solid rgba(18,58,90,.12);
 }
 .price-row:last-child { border-bottom: none; }
-.price-row__label { font: 400 19px/1.2 var(--font-serif); color: var(--color-body); }
+.price-row__label { font: 400 19px/1.2 var(--font-serif); color: var(--color-blue); }
 .price-row__value { font: 500 24px/1 var(--font-serif); color: var(--color-blue); white-space: nowrap; }
 
 /* --- Schluss-Aufruf (Closing CTA) ----------------------------------------- */
@@ -502,20 +502,24 @@ a   { color: inherit; }
 .footer-social-wrap { display: flex; justify-content: center; margin-top: 22px; }
 
 /* --- Newsletter-Formular (im Footer) -------------------------------------- */
-.newsletter { display: flex; gap: 8px; }
+.newsletter { display: flex; gap: 8px; max-width: 460px; }
 .newsletter input {
   flex: 1; min-width: 0;
   font: 400 14px var(--font-sans);
-  padding: 13px 15px; border-radius: 10px;
-  border: 1px solid rgba(239,230,213,.28);
+  padding: 13px 15px; border-radius: 999px;
+  border: 1px solid rgba(245,241,232,.28);
   background: transparent; color: var(--color-cream);
 }
+/* Gleicher Stil wie die großen CTA-Buttons (.btn): Pille, Großbuchstaben */
 .newsletter button {
-  font: 600 12px var(--font-sans); letter-spacing: .06em;
-  padding: 13px 18px; border-radius: 10px; border: none;
-  background: var(--color-gold-soft); color: var(--color-sea-salt);
+  font: 600 13px/1 var(--font-sans); letter-spacing: .10em;
+  text-transform: uppercase;
+  padding: 15px 22px; border-radius: 999px; border: none;
+  background: var(--color-gold); color: var(--color-sea-salt);
   cursor: pointer; white-space: nowrap;
+  transition: background .2s ease;
 }
+.newsletter button:hover { background: var(--color-gold-hover); }
 /* Erfolgsmeldung, die nach dem Absenden das Formular ersetzt */
 .newsletter__done { margin: 0; font: 400 15px/1.5 var(--font-serif); color: var(--color-cream); }
 /* Spam-Falle: komplett unsichtbar (nur Bots tragen hier etwas ein) */
@@ -555,8 +559,13 @@ a   { color: inherit; }
 .trip--rev .trip-stage .photo:nth-child(3) { position: absolute; left: 8%;  top: 54%; width: 52%; aspect-ratio: 4/5; }
 
 /* --- Newsletter-Footer der Trips-Seite ------------------------------------ */
-/* --- Rechtliches (Imprint-Link) am unteren Rand des Footers --------------- */
-.footer-legal { margin-top: 40px; text-align: center; }
+/* --- Unten links im Footer: Instagram-Symbol + Imprint nebeneinander ------ */
+.footer-legal {
+  margin-top: 44px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 .footer-legal a {
   font: 500 11px/1 var(--font-sans);
   letter-spacing: .1em;
@@ -677,6 +686,9 @@ a   { color: inherit; }
   /* Trips: kompakter – weniger Abstand zwischen Foto-Cluster und nächstem Trip */
   [data-page="trips"] .section { padding: 24px 0; }
 
+  /* About: weniger Luft zwischen Hero-Text und dem Fließtext darunter */
+  [data-page="about"] .hero--sub { min-height: auto; padding-bottom: 10px; }
+
   /* Kontakt: Eck-Fotos etwas größer UND weiter aus der Mitte gerückt
      (obere zwei höher, untere zwei tiefer), damit sie die Buttons nicht überlappen */
   .contact-stage > .photo:nth-child(1) { width: 38vw; top: 8%; }
@@ -719,7 +731,6 @@ a   { color: inherit; }
   .reel { width: 430px; border-radius: 26px; }
 
   /* Footer & About zweispaltig */
-  .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; }
   .about-grid  { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; }
 
   /* Hero-Foto-Reihen etwas mehr Abstand */
@@ -756,7 +767,6 @@ a   { color: inherit; }
   .trip .trip-copy p { margin: 0 auto; }
   .trip .trip-stage { order: 2; margin: 6px auto 0; max-width: 440px; height: 520px; }
   .about-grid { grid-template-columns: 1fr; gap: 8px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 26px; }
   .contact-stage > .photo:nth-child(3) { left: 4%;  bottom: 9%; }
   .contact-stage > .photo:nth-child(4) { right: 4%; bottom: 11%; }
 }
