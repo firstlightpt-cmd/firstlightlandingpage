@@ -307,7 +307,12 @@ a   { color: inherit; }
   cursor: pointer; border: none;
   transition: background .2s ease;
 }
-.btn:hover { background: var(--color-gold-hover); }
+/* Helleres Orange nur bei echtem Maus-Hover. Auf Touch-Geräten (iPhone)
+   würde der Zustand nach dem Tippen "kleben bleiben" und der Button sähe
+   dauerhaft anders aus als die übrigen CTAs. */
+@media (hover: hover) {
+  .btn:hover { background: var(--color-gold-hover); }
+}
 
 /* --- Foto-Karte: einheitlicher Look für ALLE Bilder ----------------------- */
 /* Jedes <div class="photo"> enthält genau ein <img>. Bild austauschen =
@@ -519,7 +524,9 @@ a   { color: inherit; }
   cursor: pointer; white-space: nowrap;
   transition: background .2s ease;
 }
-.newsletter button:hover { background: var(--color-gold-hover); }
+@media (hover: hover) {
+  .newsletter button:hover { background: var(--color-gold-hover); }
+}
 /* Erfolgsmeldung, die nach dem Absenden das Formular ersetzt */
 .newsletter__done { margin: 0; font: 400 15px/1.5 var(--font-serif); color: var(--color-cream); }
 /* Spam-Falle: komplett unsichtbar (nur Bots tragen hier etwas ein) */
