@@ -96,42 +96,37 @@ a   { color: inherit; }
    Navigation auch über hellen Fotos lesbar bleibt. */
 /* WICHTIG – Safari-26-Statusleisten-Fix (iPhone):
    Safari 26 färbt den Bereich hinter Uhr/Dynamic Island mit der
-   background-color des obersten sticky/fixed Elements ein – aber NUR,
-   wenn die Farbe direkt auf dem Element selbst liegt. Verläufe
-   (background-image), ::before/::after und absolute Kinder ignoriert es!
-   Deshalb: echter 20px hoher, voll weißer Kasten direkt auf dem Header.
-   margin-bottom -20px gleicht die Höhe aus → kein Layout-Platzverbrauch.
-   (Genau so machen es tagesschau.de und transfermarkt.de.) */
+   background-color des obersten sticky/fixed Elements ein – aber nur,
+   wenn die Farbe DIREKT auf dem Element liegt (Verläufe, ::before und
+   absolute Kinder ignoriert es). Deshalb ist der Header ein deckend
+   weißer Balken – wie bei tagesschau.de und transfermarkt.de, wo die
+   Statusleiste sauber aussieht. Der weiche Übergang nach unten liegt
+   auf dem Kind-Element .header-veil (direkt unter dem Balken).
+   margin-bottom gleicht die Höhe aus → kein Layout-Platzverbrauch. */
 .site-header {
   position: sticky;
   top: 0;
-  height: 20px;
-  margin-bottom: -20px;
+  height: 64px;
+  margin-bottom: -64px;
   background-color: #ffffff;     /* ← DIE Zeile, die Safari 26 ausliest */
   z-index: 50;
-  pointer-events: none;          /* Verlauf selbst nicht klickbar … */
-  /* Der weiße VERLAUF liegt auf dem Kind-Element .header-veil (unten). */
+  pointer-events: none;          /* Balken selbst nicht klickbar … */
   transition: opacity .3s ease;
 }
 
-/* Hintergrund-Träger des Headers (das <div class="header-veil"> in der
-   index.html). Bildschirmhoch (100vh), gemalt wird aber nur oben:
-     Schicht 1: voll weiß hinter einer evtl. Statusleiste (normal 0px hoch)
-     Schicht 2: der gewohnte weiße Verlauf (84px), direkt darunter        */
+/* Weiche Unterkante des weißen Header-Balkens (das <div class="header-veil">
+   in der index.html): kurzer Verlauf von voll weiß zu durchsichtig, damit
+   die Fotos beim Scrollen sanft unter dem Balken abtauchen statt hart
+   abgeschnitten zu werden. */
 .header-veil {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 100vh;                 /* der eigentliche Trick – nicht ändern! */
+  top: 100%;                     /* beginnt direkt unter dem weißen Balken */
+  left: 0; right: 0;
+  height: 40px;
   pointer-events: none;
-  background-image:
-    linear-gradient(#ffffff, #ffffff),
-    linear-gradient(180deg,
-      #ffffff 0%, rgba(255,255,255,.98) 16%, rgba(255,255,255,.92) 32%,
-      rgba(255,255,255,.78) 48%, rgba(255,255,255,.52) 64%,
-      rgba(255,255,255,.26) 80%, rgba(255,255,255,0) 100%);
-  background-repeat: no-repeat;
-  background-size: 100% env(safe-area-inset-top, 0px), 100% 84px;
-  background-position: 0 0, 0 env(safe-area-inset-top, 0px);
+  background: linear-gradient(180deg,
+    #ffffff 0%, rgba(255,255,255,.9) 30%, rgba(255,255,255,.55) 60%,
+    rgba(255,255,255,.22) 82%, rgba(255,255,255,0) 100%);
 }
 
 /* … aber Logo, Navi & Burger schon */
