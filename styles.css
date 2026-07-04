@@ -94,19 +94,23 @@ a   { color: inherit; }
    ============================================================================ */
 /* Kopfzeile bleibt oben fixiert. Der weiße Verlauf sorgt dafür, dass die
    Navigation auch über hellen Fotos lesbar bleibt. */
-/* WICHTIG: position:sticky statt fixed! iOS-26-Safari nimmt nur Elemente,
-   die zum normalen Seitenfluss gehören (sticky), in die Statusleisten-
-   Darstellung auf – fixierte Elemente werden dort ignoriert, dann zieht
-   beim Scrollen Inhalt hinter Uhr/Dynamic Island vorbei. So löst es z. B.
-   auch blanksbythirteen.com. Höhe 0 = nimmt keinen Platz im Layout weg,
-   Logo & Burger ragen einfach sichtbar heraus (overflow bleibt sichtbar). */
+/* WICHTIG – Safari-26-Statusleisten-Fix (iPhone):
+   Safari 26 färbt den Bereich hinter Uhr/Dynamic Island mit der
+   background-color des obersten sticky/fixed Elements ein – aber NUR,
+   wenn die Farbe direkt auf dem Element selbst liegt. Verläufe
+   (background-image), ::before/::after und absolute Kinder ignoriert es!
+   Deshalb: echter 20px hoher, voll weißer Kasten direkt auf dem Header.
+   margin-bottom -20px gleicht die Höhe aus → kein Layout-Platzverbrauch.
+   (Genau so machen es tagesschau.de und transfermarkt.de.) */
 .site-header {
   position: sticky;
   top: 0;
-  height: 0;
+  height: 20px;
+  margin-bottom: -20px;
+  background-color: #ffffff;     /* ← DIE Zeile, die Safari 26 ausliest */
   z-index: 50;
   pointer-events: none;          /* Verlauf selbst nicht klickbar … */
-  /* Der weiße Hintergrund liegt auf dem Kind-Element .header-veil (unten). */
+  /* Der weiße VERLAUF liegt auf dem Kind-Element .header-veil (unten). */
   transition: opacity .3s ease;
 }
 
