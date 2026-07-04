@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- viewport-fit=cover: Die Seite darf bis unter die iPhone-Statusleiste
-       reichen. Nur so kann der fixierte Header den Bereich hinter Uhr &
-       Dynamic Island weiß abdecken (Details: .site-header in styles.css). -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Bewusst OHNE viewport-fit=cover: dann bleibt der Seiteninhalt unter
+       der iPhone-Statusleiste, und Safari färbt den Bereich hinter Uhr &
+       Dynamic Island passend zum obersten Element – unserem weißen,
+       sticky positionierten Header (Details: .site-header in styles.css). -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Färbt bei iOS/Android die Browser-Flächen rund um die Seite weiß -->
+  <meta name="theme-color" content="#ffffff">
   <title>First Light — Surf Days</title>
 
   <!-- ===================================================================

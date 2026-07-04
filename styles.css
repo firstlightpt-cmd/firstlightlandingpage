@@ -94,26 +94,25 @@ a   { color: inherit; }
    ============================================================================ */
 /* Kopfzeile bleibt oben fixiert. Der weiße Verlauf sorgt dafür, dass die
    Navigation auch über hellen Fotos lesbar bleibt. */
+/* WICHTIG: position:sticky statt fixed! iOS-26-Safari nimmt nur Elemente,
+   die zum normalen Seitenfluss gehören (sticky), in die Statusleisten-
+   Darstellung auf – fixierte Elemente werden dort ignoriert, dann zieht
+   beim Scrollen Inhalt hinter Uhr/Dynamic Island vorbei. So löst es z. B.
+   auch blanksbythirteen.com. Höhe 0 = nimmt keinen Platz im Layout weg,
+   Logo & Burger ragen einfach sichtbar heraus (overflow bleibt sichtbar). */
 .site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
+  height: 0;
   z-index: 50;
   pointer-events: none;          /* Verlauf selbst nicht klickbar … */
-  /* Auf dem iPhone kommt oben die Höhe der Statusleiste dazu
-     (env(safe-area-inset-top) – funktioniert nur mit viewport-fit=cover
-     im Meta-Tag der index.html). Am Desktop ist der Wert 0. */
-  padding: calc(18px + env(safe-area-inset-top, 0px)) 0 44px;
-  /* WICHTIG: Der weiße Hintergrund liegt NICHT hier, sondern auf dem
-     Kind-Element .header-veil (siehe unten) – iOS-26-Workaround. */
+  /* Der weiße Hintergrund liegt auf dem Kind-Element .header-veil (unten). */
   transition: opacity .3s ease;
 }
 
 /* Hintergrund-Träger des Headers (das <div class="header-veil"> in der
-   index.html). iOS-26-Safari weigert sich, fixierte Elemente hinter die
-   Statusleiste zu malen – AUSSER der fixierte Container hat ein Kind mit
-   100vh Höhe (so macht es Apple auf apple.com selbst). Deshalb ist dieses
-   Element bildschirmhoch, gemalt wird aber nur oben:
-     Schicht 1: voll weiß, exakt so hoch wie die Statusleiste
+   index.html). Bildschirmhoch (100vh), gemalt wird aber nur oben:
+     Schicht 1: voll weiß hinter einer evtl. Statusleiste (normal 0px hoch)
      Schicht 2: der gewohnte weiße Verlauf (84px), direkt darunter        */
 .header-veil {
   position: absolute;
@@ -137,7 +136,7 @@ a   { color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 22px;
+  padding: 18px 22px 0;   /* 18px Abstand zur Bildschirm-Oberkante */
   max-width: 1240px;
   margin: 0 auto;
 }
@@ -631,7 +630,7 @@ a   { color: inherit; }
   /* Navigation umschalten: Burger weg, Desktop-Navi sichtbar */
   .burger { display: none; }
   .nav-desktop { display: flex; }
-  .header-inner { padding: 0 44px; }
+  .header-inner { padding: 18px 44px 0; }
 
   /* Hero größer & zentriert */
   .hero { min-height: max(82vh, 600px); padding: 110px 24px 7vh; }
