@@ -43,6 +43,14 @@
   --color-line:       rgba(18,58,90,.16);    /* feine Trennlinien */
   --color-placeholder:#cdd6da;  /* Hintergrund leerer Foto-Platzhalter */
 
+  /* ----- FIRST LIGHT COLOR IDENTITY -----------------------------------------
+     Die offiziellen Markenfarben. Um sie irgendwo zu verwenden, einfach
+     z. B. background: var(--color-ocean-blue); schreiben. */
+  --color-ocean-blue:     #1F2C43;  /* Ocean Blue    – dunkles Blau */
+  --color-sea-salt:       #F5F1E8;  /* Sea Salt      – warmes Off-White */
+  --color-sunrise-orange: #F0660D;  /* Sunrise Orange – kräftiger Akzent */
+  --color-onyx-grey:      #454545;  /* Onyx Grey     – neutrales Dunkelgrau */
+
   /* ----- Schriften ----------------------------------------------------------
      Geladen werden Newsreader (Serife) & Archivo (serifenlos) per Google Fonts
      im <head> der index.html. Willst du andere Schriften:
@@ -343,14 +351,14 @@ a   { color: inherit; }
 .float-e { animation: float-e 7.9s ease-in-out infinite alternate; }
 
 /* --- Einblenden beim Scrollen --------------------------------------------
-   Elemente mit class="reveal" starten unsichtbar und gleiten beim Scrollen
-   herein. Das JavaScript fügt dazu die Klasse .is-visible hinzu. */
+   Elemente mit class="reveal" starten unsichtbar und blenden beim Scrollen
+   sanft ein (nur Deckkraft, ohne Bewegung/Zoom).
+   Das JavaScript fügt dazu die Klasse .is-visible hinzu. */
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity .7s ease, transform .7s ease;
+  transition: opacity .7s ease;
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+.reveal.is-visible { opacity: 1; }
 .reveal--d1 { transition-delay: .08s; }  /* leicht verzögert (Staffelung) */
 .reveal--d2 { transition-delay: .12s; }
 
