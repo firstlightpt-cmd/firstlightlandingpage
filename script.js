@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const pages  = Array.from(document.querySelectorAll('[data-page]'));
   const menu   = document.querySelector('[data-menu]');
 
+  /* ---- 0. LADE-SCREEN AUFRÄUMEN -------------------------------------------
+     Der Loader blendet sich per CSS nach ~1 s aus, bliebe aber unsichtbar
+     im DOM liegen. Safari 26 (iPhone) bezieht unsichtbare fixed-Elemente
+     in die Färbung der Statusleiste ein – deshalb fliegt er ganz raus. */
+  setTimeout(() => {
+    const loader = document.querySelector('.loader');
+    if (loader) loader.remove();
+  }, 1200);
+
 
   /* ---- 1. SEITEN UMSCHALTEN ----------------------------------------------
      Jeder Link mit data-goto="home|trips|about|contact" zeigt die zugehörige

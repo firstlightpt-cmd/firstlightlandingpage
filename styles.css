@@ -82,6 +82,12 @@ html { background: #ffffff; }
   position: fixed;
   inset: 0;
   z-index: -1;
+  /* Das Bild liegt auf ::before, damit dieses fixed-Element für Safaris
+     Statusleisten-Sampling unsichtbar bleibt (siehe .site-header). */
+}
+.site-bg::before {
+  content: "";
+  position: absolute; inset: 0;
   background: #f4f6f7 url('assets/web-bg.jpg') center center / cover no-repeat;
 }
 
@@ -180,11 +186,14 @@ a   { color: inherit; }
    ============================================================================ */
 .mobile-menu {
   position: fixed; inset: 0; z-index: 60;
-  background: rgba(10,30,48,.96);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  opacity: 0; pointer-events: none; transform: translateY(-8px);
-  transition: opacity .38s ease, transform .38s ease;
+  /* WICHTIG: Dunkle Farbe + Blur liegen auf ::before, NICHT hier!
+     Safari 26 liest background-color/backdrop-filter von fixed-Elementen
+     für die iPhone-Statusleiste aus – auch im unsichtbaren Zustand
+     (opacity 0). Das Menü liegt mit z-index 60 ÜBER dem weißen Header
+     (50) und würde dessen Farbe sonst dauerhaft überstimmen. */
+  opacity: 0; pointer-events: none; visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .38s ease, transform .38s ease, visibility 0s linear .38s;
   display: flex; flex-direction: column;
   align-items: center; justify-content: flex-start;
   /* safe-area: Menüpunkte nicht unter Statusleiste/Home-Balken schieben */
@@ -192,7 +201,18 @@ a   { color: inherit; }
            calc(38px + env(safe-area-inset-bottom, 0px));
   text-align: center;
 }
-.mobile-menu.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.mobile-menu::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  background: rgba(10,30,48,.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.mobile-menu.is-open {
+  opacity: 1; pointer-events: auto; visibility: visible;
+  transform: translateY(0);
+  transition: opacity .38s ease, transform .38s ease, visibility 0s;
+}
 .mobile-menu nav { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .mobile-menu__link {
   font: 300 44px/1.18 var(--font-serif);
@@ -730,8 +750,18 @@ a   { color: inherit; }
 .loader {
   position: fixed; inset: 0; z-index: 9999;
   display: flex; align-items: center; justify-content: center;
-  background: #0a1f30;                 /* dunkles Marineblau (wie Menü/Footer) */
+  /* WICHTIG: Die Farbe liegt auf ::before, NICHT hier! Safari 26 liest die
+     background-color von fixed-Elementen für die Färbung der iPhone-
+     Statusleiste aus – auch von unsichtbaren. Läge das Marineblau direkt
+     hier, würde es den weißen Header überstimmen (z-index 9999 > 50).
+     Zusätzlich entfernt script.js den Loader nach der Intro-Animation
+     komplett aus der Seite. */
   animation: loader-out .28s ease .72s forwards;   /* Ausblenden: Start bei .72s */
+}
+.loader::before {
+  content: "";
+  position: absolute; inset: 0; z-index: -1;
+  background: #0a1f30;                 /* dunkles Marineblau (wie Menü/Footer) */
 }
 .loader__heart { width: clamp(78px, 22vw, 112px); height: auto; overflow: visible; }
 .loader__heart path {
