@@ -236,9 +236,13 @@
           <div class="reveal">
             <div class="eyebrow">Beyond the festival</div>
             <h2>Our trips — advanced surf explorations.</h2>
-            <p>20 people, all included, lots of programme, proper adventures along wild coastlines.</p>
+            <p>20 people, all included, lots of programme, proper adventures along wild coastlines. That's what we're up to when it's not festival season.</p>
           </div>
           <div class="reveal reveal--d1">
+            <!-- Hinweis auf den Newsletter: spannt den Bogen von den Trips -->
+            <div class="eyebrow">Newsletter</div>
+            <h2>Don't miss out.</h2>
+            <p>New trips, dates and free spots always land in the newsletter first. Drop your email and stay in the loop.</p>
             <!-- Newsletter → MailerLite. Die Verbindung stellt script.js her;
                  du musst dort nur EINMAL deine MailerLite-URL eintragen
                  (Konstante MAILERLITE_URL ganz oben in script.js). -->
@@ -248,14 +252,17 @@
               <!-- Spam-Falle: für Menschen unsichtbar, nur Bots füllen sie aus -->
               <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field">
             </form>
-            <!-- Instagram-Link, mittig unter dem E-Mail-Feld -->
+            <!-- Instagram-Link (nur Symbol), mittig unter dem E-Mail-Feld -->
             <div class="footer-social-wrap">
-              <a class="footer-social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener">
+              <a class="footer-social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="First Light auf Instagram">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
-                <span>@firstlight.pt</span>
               </a>
             </div>
           </div>
+        </div>
+        <!-- Rechtliches: Link zur Imprint-Seite -->
+        <div class="footer-legal">
+          <a href="#" data-goto="imprint">Imprint</a>
         </div>
       </footer>
     </section>
@@ -415,6 +422,42 @@
             DM us on Instagram
           </a>
         </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         SEITE: IMPRINT (Impressum)
+         WICHTIG: Die Angaben in [eckigen Klammern] sind Platzhalter –
+         bitte vor dem echten Livegang durch eure Daten ersetzen!
+         ================================================================ -->
+    <section class="page" data-page="imprint" aria-label="Imprint" hidden>
+      <div class="imprint">
+        <div class="eyebrow">Legal</div>
+        <h1 class="section-head">Imprint.</h1>
+
+        <h2>Angaben gemäß § 5 TMG</h2>
+        <p>
+          [Vor- und Nachname / Firmenname]<br>
+          [Straße und Hausnummer]<br>
+          [PLZ und Ort]<br>
+          [Land]
+        </p>
+
+        <h2>Kontakt</h2>
+        <p>
+          E-Mail: <a href="mailto:firstlightgang@gmail.com">firstlightgang@gmail.com</a><br>
+          Telefon: [Telefonnummer]
+        </p>
+
+        <h2>Verantwortlich für den Inhalt</h2>
+        <p>[Vor- und Nachname]<br>[Anschrift wie oben]</p>
+
+        <h2>Haftung für Inhalte</h2>
+        <p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+
+        <h2>Haftung für Links</h2>
+        <p>Unsere Website enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte übernehmen wir keine Gewähr.</p>
       </div>
     </section>
 

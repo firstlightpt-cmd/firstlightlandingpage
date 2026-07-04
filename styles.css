@@ -299,7 +299,7 @@ a   { color: inherit; }
   font: 600 13px/1 var(--font-sans);
   letter-spacing: .10em;
   text-transform: uppercase;
-  color: #211C12;
+  color: var(--color-sea-salt);
   background: var(--color-gold);
   padding: 15px 24px;
   border-radius: 999px;
@@ -513,7 +513,7 @@ a   { color: inherit; }
 .newsletter button {
   font: 600 12px var(--font-sans); letter-spacing: .06em;
   padding: 13px 18px; border-radius: 10px; border: none;
-  background: var(--color-gold-soft); color: #1a1207;
+  background: var(--color-gold-soft); color: var(--color-sea-salt);
   cursor: pointer; white-space: nowrap;
 }
 /* Erfolgsmeldung, die nach dem Absenden das Formular ersetzt */
@@ -555,6 +555,38 @@ a   { color: inherit; }
 .trip--rev .trip-stage .photo:nth-child(3) { position: absolute; left: 8%;  top: 54%; width: 52%; aspect-ratio: 4/5; }
 
 /* --- Newsletter-Footer der Trips-Seite ------------------------------------ */
+/* --- Rechtliches (Imprint-Link) am unteren Rand des Footers --------------- */
+.footer-legal { margin-top: 40px; text-align: center; }
+.footer-legal a {
+  font: 500 11px/1 var(--font-sans);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-cream-dim);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.footer-legal a:hover { color: var(--color-gold-soft); }
+
+/* --- Imprint-Seite (Impressum) --------------------------------------------- */
+.imprint {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 140px 28px 90px;   /* oben Platz für den fixierten Header */
+}
+.imprint h2 {
+  margin: 34px 0 10px;
+  font: 600 13px/1 var(--font-sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+}
+.imprint p {
+  margin: 0;
+  font: 400 15px/1.65 var(--font-serif);
+  color: var(--color-body);
+}
+.imprint a { color: var(--color-accent); }
+
 .footer--center { padding: 50px 0 46px; }
 .footer--center .wrap { text-align: center; }
 .footer--center .eyebrow { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--color-gold-soft); margin-bottom: 10px; }
