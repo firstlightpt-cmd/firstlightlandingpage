@@ -272,7 +272,7 @@ a   { color: inherit; }
 /* --- Standard-Überschrift innerhalb einer Sektion ------------------------- */
 .h2 {
   margin: 0 0 26px;
-  font: 400 30px/1.08 var(--font-serif);
+  font: italic 400 30px/1.08 var(--font-serif);
   color: var(--color-ink);
 }
 /* --- einleitender Untertitel unter den großen Überschriften --------------- */
@@ -550,7 +550,7 @@ a   { color: inherit; }
 .trip-copy .eyebrow,
 .trip-copy .label { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--color-accent); margin-bottom: 8px; }
 .trip-copy h2 { margin: 0 0 8px; font: 400 clamp(34px,4.5vw,52px)/1.02 var(--font-serif); color: var(--color-blue); }
-.trip-copy p  { margin: 0; font: italic 400 18px/1.4 var(--font-serif); color: var(--color-muted); max-width: 300px; }
+.trip-copy p  { margin: 0; font: 400 18px/1.4 var(--font-serif); color: var(--color-muted); max-width: 300px; }
 
 /* Foto-Cluster eines Trips (drei überlappende Fotos).
    Handy: großer, dichter Cluster, zentriert unter dem Text (überlagert den Text
