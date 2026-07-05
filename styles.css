@@ -277,7 +277,7 @@ a   { color: inherit; }
 }
 /* --- einleitender Untertitel unter den großen Überschriften --------------- */
 .lede {
-  font: 400 19px/1.35 var(--font-serif);
+  font: 400 16px/1.45 var(--font-sans);
   color: var(--color-muted);
   max-width: 340px;
 }
