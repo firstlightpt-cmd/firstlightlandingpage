@@ -466,7 +466,7 @@ a   { color: inherit; }
 }
 .keyfact { background: #fff; padding: 22px 20px; }
 .keyfact__label { font: 600 10px/1 var(--font-sans); letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 9px; }
-.keyfact__value { font: 400 21px/1.15 var(--font-serif); color: var(--color-ink); }
+.keyfact__value { font: 400 19px/1.15 var(--font-serif); color: var(--color-ink); }
 
 /* --- Programm (nummerierte Liste) ----------------------------------------- */
 .programme { border-top: 1px solid var(--color-line); }
@@ -477,7 +477,7 @@ a   { color: inherit; }
   break-inside: avoid;          /* hält eine Zeile in einer Spalte zusammen */
 }
 .programme__num  { font: 500 11px/1 var(--font-mono); color: var(--color-accent); width: 22px; }
-.programme__name { font: 400 23px/1 var(--font-serif); color: var(--color-ink); }
+.programme__name { font: 400 19px/1 var(--font-serif); color: var(--color-ink); }
 .programme__name--italic { font-style: italic; }
 
 /* --- Preise --------------------------------------------------------------- */
