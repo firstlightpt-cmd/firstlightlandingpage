@@ -58,7 +58,8 @@
        2. hier den Namen austauschen */
   --font-serif: 'Newsreader', Georgia, serif;        /* Überschriften & Fließtext */
   --font-sans:  'Archivo', Helvetica, Arial, sans-serif; /* Labels, Navi, Buttons */
-  --font-mono:  ui-monospace, 'SF Mono', Menlo, monospace; /* kleine Datums-Labels */
+  --font-mono:  'Archivo', Helvetica, Arial, sans-serif; /* kleine Datums-Labels –
+                   bewusst dieselbe Schrift wie Buttons/Eyebrows (einheitliches Bild) */
 
   /* ----- Layout -------------------------------------------------------------- */
   --maxwidth:  1080px;  /* maximale Breite des Inhalts auf großen Bildschirmen */
@@ -282,8 +283,8 @@ a   { color: inherit; }
 }
 /* --- kleines Datums-/Mono-Label ("SEP 5–12 · 2026 · PORTUGAL") ------------ */
 .meta {
-  font: 500 11px/1 var(--font-mono);
-  letter-spacing: .08em;
+  font: 600 11px/1 var(--font-mono);
+  letter-spacing: .18em;
   color: var(--color-mono);
 }
 /* --- großes Zitat --------------------------------------------------------- */
