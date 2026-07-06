@@ -125,17 +125,14 @@
       </div>
 
       <!-- ---- REEL / VIDEO ----
-           Noch ein Platzhalter. Eigenes Video einsetzen:
-           1. Videodatei nach assets/ legen (z. B. assets/reel.mp4)
-           2. unten src="/assets/reel.mp4" ins <video>-Tag schreiben
-           3. den <div class="reel__overlay"> darunter löschen -->
+           Läuft stumm, automatisch und in Endlosschleife (autoplay/loop/muted;
+           playsinline = spielt am iPhone im Element statt Vollbild).
+           Video tauschen: neue Datei nach assets/ legen und src unten anpassen.
+           TEMPO: Original ist sehr groß (~22 MB) – vor dem Live-Gang unbedingt
+           komprimieren (siehe Hinweise, die ich dir gegeben habe). -->
       <div class="reel-wrap">
         <div class="reel reveal">
-          <video autoplay loop muted playsinline></video>
-          <div class="reel__overlay">
-            <div class="reel__play"></div>
-            <span class="reel__hint">reel video — drop your clip here</span>
-          </div>
+          <video src="/assets/reel.mp4" poster="/assets/reel-poster.jpg" autoplay loop muted playsinline preload="metadata"></video>
         </div>
       </div>
 
