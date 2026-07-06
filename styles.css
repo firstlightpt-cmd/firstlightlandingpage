@@ -153,6 +153,23 @@ a   { color: inherit; }
     rgba(255,255,255,.22) 82%, rgba(255,255,255,0) 100%);
 }
 
+/* Desktop-Overscroll (Gummiband oben): Über dem weißen Header-Balken soll nur
+   WEISS erscheinen, nicht der fixe Wasser-Hintergrund. Dieser weiße Streifen
+   hängt am (mit dem Inhalt mitfedernden) Header und liegt normalerweise
+   außerhalb des Bildschirms – erst beim Hochziehen wird er sichtbar und
+   verdeckt den fest stehenden Wasser-Hintergrund (.site-bg). */
+@media (min-width: 900px) {
+  .site-header::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 100%;          /* direkt über dem Balken, nach oben verlängert */
+    height: 100vh;
+    background: #ffffff;
+    pointer-events: none;
+  }
+}
+
 /* … aber Logo, Navi & Burger schon */
 .header-inner {
   position: relative;   /* liegt damit ÜBER dem .header-veil-Hintergrund */
