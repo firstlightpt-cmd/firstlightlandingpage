@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>About Us — First Light</title>
+  <meta name="description" content="First Light is an international surf collective built on the love of surfing, shared with the right people. Community over competition, every single time.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon_firstlight.png">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Intro-Herz nur beim ERSTEN Aufruf einer Sitzung zeigen. -->
+  <script>
+    try {
+      if (sessionStorage.getItem('fl_intro_seen')) document.documentElement.classList.add('intro-seen');
+      else sessionStorage.setItem('fl_intro_seen', '1');
+    } catch (e) {}
+  </script>
+</head>
+
+<body>
+
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__heart" viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path pathLength="1"
+            d="M133 176 C 96 150, 44 130, 30 88 C 19 53, 52 24, 82 44 C 99 55, 111 73, 121 91 C 131 71, 146 49, 171 42 C 208 31, 227 64, 209 94 C 188 130, 138 156, 105 197"
+            stroke="#F5F1E8" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="site-bg"></div>
+
+  <header class="site-header">
+    <div class="header-veil" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a href="/" aria-label="First Light – Home">
+        <img class="logo" src="/assets/firstlight-logo.png" alt="First Light">
+      </a>
+      <nav class="nav-desktop">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/trips/">Our Trips</a>
+        <a class="nav-link" href="/about/" aria-current="page">About Us</a>
+        <a class="nav-link" href="/contact/">Contact</a>
+        <a class="nav-icon" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+      </nav>
+      <button class="burger" data-burger aria-label="Menü öffnen">
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" data-menu>
+    <nav>
+      <a class="mobile-menu__link" href="/">Home</a>
+      <a class="mobile-menu__link" href="/trips/">Our Trips</a>
+      <a class="mobile-menu__link" href="/about/" aria-current="page">About Us</a>
+      <a class="mobile-menu__link" href="/contact/">Contact</a>
+    </nav>
+    <a class="mobile-menu__social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+      <span>@FIRSTLIGHT.PT</span>
+    </a>
+  </div>
+
+
+  <main>
+    <!-- ================================================================
+         SEITE: ABOUT US
+         ================================================================ -->
+    <section class="page" data-page="about" aria-label="About Us">
+
+      <!-- ---- HERO ---- -->
+      <div class="hero hero--sub">
+        <div class="photo-row photo-row--sub hero-photos-about">
+          <div class="photo float-a"><img src="/assets/web-ph-about-hero-1.jpg" alt=""></div>
+          <div class="photo float-b"><img src="/assets/web-ph-about-hero-2.jpg" alt=""></div>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow">Who We Are</div>
+          <h1 class="section-head">About Us.</h1>
+          <p class="lede">A small crew with a soft spot for cold mornings and warm nights.</p>
+        </div>
+      </div>
+
+      <!-- ---- TEXT + FOTOS ---- -->
+      <section class="section">
+        <div class="wrap about-grid">
+          <div class="about-text reveal">
+            <p>First Light is an international surf collective built on one simple thing: the love of surfing, shared with the right people. It started with a handful of close friends and two founders, Marc and Jannick, who woke up one day with the thought "Let's build a surfcrew." - First light was born, the first waves of the day, before anyone else is out.</p>
+            <p>Once a year we bring everyone together for a Surf Exploration: an adventure planned down to the last detail, so you never have to think about the house, the cars, the spots or the program. It's made for people who take surfing, and the quiet romance that comes with it, seriously.</p>
+            <p>But it was never really about the waves alone. It's about getting just as fired up for someone else's ride as for your own, about the mornings, the bonfires, the people you end up calling family by the end of the week. Community over competition, every single time.</p>
+          </div>
+          <div class="about-photos reveal reveal--d1">
+            <div class="photo float-c"><img src="/assets/web-ph-about-3.jpg" alt=""></div>
+            <div class="photo float-d"><img src="/assets/web-ph-about-2.jpg" alt=""></div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

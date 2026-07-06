@@ -10,32 +10,33 @@
   <!-- Färbt bei iOS/Android die Browser-Flächen rund um die Seite weiß -->
   <meta name="theme-color" content="#ffffff">
   <title>First Light — Surf Days</title>
+  <meta name="description" content="First Light Surf Days — a bit of a surftrip, a bit of a festival, and a whole bunch of amazing people. SEP 5–12 · 2026 · Portugal.">
 
   <!-- ===================================================================
        SCHRIFTEN (Google Fonts)
        Newsreader = Serife (Überschriften/Text), Archivo = serifenlos (Labels).
-       Andere Schrift gewünscht? Hier den Link tauschen und in styles.css
-       unter EINSTELLUNGEN --font-serif / --font-sans anpassen.
        =================================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon (kleines Browser-Tab-Icon). Eigene Datei: href durch
-       "assets/dein-favicon.png" ersetzen. -->
-  <link rel="icon" type="image/svg+xml" href="assets/favicon_firstlight.png">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon_firstlight.png">
+  <link rel="stylesheet" href="/styles.css">
 
-  <!-- Alle Stile liegen in styles.css -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Intro-Herz nur beim ERSTEN Aufruf einer Sitzung zeigen (nicht bei jedem
+       Seitenwechsel). Läuft vor dem Rendern, damit nichts kurz aufblitzt. -->
+  <script>
+    try {
+      if (sessionStorage.getItem('fl_intro_seen')) document.documentElement.classList.add('intro-seen');
+      else sessionStorage.setItem('fl_intro_seen', '1');
+    } catch (e) {}
+  </script>
 </head>
 
 <body>
 
   <!-- ====================================================================
        INTRO / LADESCREEN — kurz eingeblendetes, handgezeichnetes Herz.
-       Das Herz „malt" sich beim Laden einmal selbst und blendet dann aus.
-       Timing, Farbe & Größe: siehe ".loader" in styles.css (Abschnitt 13).
-       Nicht mehr gewünscht? Diesen Block hier einfach löschen.
        ==================================================================== -->
   <div class="loader" aria-hidden="true">
     <svg class="loader__heart" viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,30 +52,26 @@
 
   <!-- ====================================================================
        HEADER  (Logo + Navigation, auf allen Seiten gleich)
+       Jeder Link führt jetzt auf eine eigene Adresse (eigenständige Seiten).
        ==================================================================== -->
   <header class="site-header">
-    <!-- Weiche Unterkante des weißen Header-Balkens (Verlauf nach unten).
-         Details: .header-veil in styles.css -->
     <div class="header-veil" aria-hidden="true"></div>
     <div class="header-inner">
 
-      <!-- LOGO — Bild austauschen: src ändern. Größe: .logo in styles.css -->
-      <a href="#" data-goto="home" aria-label="First Light – Home">
-        <img class="logo" src="assets/firstlight-logo.png" alt="First Light">
+      <a href="/" aria-label="First Light – Home">
+        <img class="logo" src="/assets/firstlight-logo.png" alt="First Light">
       </a>
 
-      <!-- Desktop-Navigation (ab 900px sichtbar) -->
       <nav class="nav-desktop">
-        <a class="nav-link" href="#" data-goto="home">Home</a>
-        <a class="nav-link" href="#" data-goto="trips">Our Trips</a>
-        <a class="nav-link" href="#" data-goto="about">About Us</a>
-        <a class="nav-link" href="#" data-goto="contact">Contact</a>
+        <a class="nav-link" href="/" aria-current="page">Home</a>
+        <a class="nav-link" href="/trips/">Our Trips</a>
+        <a class="nav-link" href="/about/">About Us</a>
+        <a class="nav-link" href="/contact/">Contact</a>
         <a class="nav-icon" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
         </a>
       </nav>
 
-      <!-- Burger-Button (nur Handy, öffnet das Mobile-Menü) -->
       <button class="burger" data-burger aria-label="Menü öffnen">
         <span class="burger__bar"></span>
         <span class="burger__bar"></span>
@@ -89,10 +86,10 @@
        ==================================================================== -->
   <div class="mobile-menu" data-menu>
     <nav>
-      <a class="mobile-menu__link" href="#" data-goto="home">Home</a>
-      <a class="mobile-menu__link" href="#" data-goto="trips">Our Trips</a>
-      <a class="mobile-menu__link" href="#" data-goto="about">About Us</a>
-      <a class="mobile-menu__link" href="#" data-goto="contact">Contact</a>
+      <a class="mobile-menu__link" href="/" aria-current="page">Home</a>
+      <a class="mobile-menu__link" href="/trips/">Our Trips</a>
+      <a class="mobile-menu__link" href="/about/">About Us</a>
+      <a class="mobile-menu__link" href="/contact/">Contact</a>
     </nav>
     <a class="mobile-menu__social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
@@ -101,14 +98,7 @@
   </div>
 
 
-  <!-- ====================================================================
-       SEITEN
-       Single-Page-Website: alle vier Seiten stehen hier untereinander,
-       sichtbar ist aber immer nur eine. Das Umschalten übernimmt script.js
-       (über die data-goto-Links in der Navigation).
-       ==================================================================== -->
   <main>
-
     <!-- ================================================================
          SEITE: HOME
          ================================================================ -->
@@ -116,13 +106,12 @@
 
       <!-- ---- HERO (Startbild) ---- -->
       <div class="hero">
-        <!-- 4 schwebende Fotos. Bild tauschen = src ändern.
-             Größe/Anordnung: .hero-photos-home in styles.css -->
+        <!-- 4 schwebende Fotos. Bild tauschen = src ändern. -->
         <div class="photo-row hero-photos-home">
-          <div class="photo float-a"><img src="assets/web-ph-home-surfers.jpg" alt=""></div>
-          <div class="photo float-c"><img src="assets/web-ph-home-lounge.jpg" alt=""></div>
-          <div class="photo float-b"><img src="assets/web-ph-home-concert.jpg" alt=""></div>
-          <div class="photo float-d"><img src="assets/web-ph-home-rooftop.jpg" alt=""></div>
+          <div class="photo float-a"><img src="/assets/web-ph-home-surfers.jpg" alt=""></div>
+          <div class="photo float-c"><img src="/assets/web-ph-home-lounge.jpg" alt=""></div>
+          <div class="photo float-b"><img src="/assets/web-ph-home-concert.jpg" alt=""></div>
+          <div class="photo float-d"><img src="/assets/web-ph-home-rooftop.jpg" alt=""></div>
         </div>
 
         <!-- Text + Button -->
@@ -138,7 +127,7 @@
       <!-- ---- REEL / VIDEO ----
            Noch ein Platzhalter. Eigenes Video einsetzen:
            1. Videodatei nach assets/ legen (z. B. assets/reel.mp4)
-           2. unten src="assets/reel.mp4" ins <video>-Tag schreiben
+           2. unten src="/assets/reel.mp4" ins <video>-Tag schreiben
            3. den <div class="reel__overlay"> darunter löschen -->
       <div class="reel-wrap">
         <div class="reel reveal">
@@ -150,9 +139,7 @@
         </div>
       </div>
 
-      <!-- ---- KEY FACTS ----
-           Ein Kästchen = ein .keyfact mit Label + Wert. Werte hier direkt
-           im Text ändern. -->
+      <!-- ---- KEY FACTS ---- -->
       <section class="section section--tight-bottom">
         <div class="wrap">
           <div class="reveal">
@@ -175,16 +162,14 @@
         <div class="wrap" style="padding:0 30px">
           <blockquote class="quote reveal">“A bit of a surftrip, a bit of a festival, and a whole bunch of amazing people.”</blockquote>
           <div class="crew reveal reveal--d1">
-            <div class="photo float-c"><img src="assets/web-ph-crew-1.jpg" alt=""></div>
-            <div class="photo float-d"><img src="assets/web-ph-crew-2.jpg" alt=""></div>
-            <div class="photo float-e"><img src="assets/web-ph-crew-3.jpg" alt=""></div>
+            <div class="photo float-c"><img src="/assets/web-ph-crew-1.jpg" alt=""></div>
+            <div class="photo float-d"><img src="/assets/web-ph-crew-2.jpg" alt=""></div>
+            <div class="photo float-e"><img src="/assets/web-ph-crew-3.jpg" alt=""></div>
           </div>
         </div>
       </section>
 
-      <!-- ---- PROGRAMM ----
-           Eine Zeile = ein .programme__item (Nummer + Name). Punkt hinzufügen
-           oder löschen, indem du eine Zeile kopierst bzw. entfernst. -->
+      <!-- ---- PROGRAMM ---- -->
       <section class="section section--tight-top">
         <div class="wrap">
           <div class="reveal">
@@ -204,8 +189,7 @@
         </div>
       </section>
 
-      <!-- ---- PREISE ----
-           Eine Zeile = ein .price-row (Bezeichnung + Preis). -->
+      <!-- ---- PREISE ---- -->
       <section class="section">
         <div class="wrap wrap--narrow">
           <div class="reveal">
@@ -233,24 +217,19 @@
       <!-- ---- FOOTER (Home) ---- -->
       <footer class="footer">
         <div class="wrap">
-          <!-- Ein zusammenhängender Block: von den Trips zum Newsletter -->
           <div class="reveal">
             <div class="eyebrow">Beyond the festival</div>
             <h2>Our trips — advanced surf explorations.</h2>
             <p>20 people, all included, lots of programme, proper adventures along wild coastlines. Everything new — trips, dates, free spots — always lands in the newsletter first. Drop your email and don't miss out.</p>
-            <!-- Newsletter → MailerLite. Die Verbindung stellt script.js her;
-                 du musst dort nur EINMAL deine MailerLite-URL eintragen
-                 (Konstante MAILERLITE_URL ganz oben in script.js). -->
             <form class="newsletter" data-newsletter>
               <input type="email" name="fields[email]" placeholder="your email" aria-label="your email" required>
               <button type="submit">Keep me posted</button>
-              <!-- Spam-Falle: für Menschen unsichtbar, nur Bots füllen sie aus -->
               <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field">
             </form>
           </div>
           <!-- Unten rechts: Imprint-Link + Instagram-Symbol nebeneinander -->
           <div class="footer-legal">
-            <a href="#" data-goto="imprint">Imprint</a>
+            <a href="/imprint/">Imprint</a>
             <a class="footer-social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="First Light auf Instagram">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
             </a>
@@ -258,211 +237,9 @@
         </div>
       </footer>
     </section>
-
-
-    <!-- ================================================================
-         SEITE: OUR TRIPS
-         ================================================================ -->
-    <section class="page" data-page="trips" aria-label="Our Trips" hidden>
-
-      <!-- ---- HERO ---- -->
-      <div class="hero hero--sub">
-        <div class="photo-row photo-row--sub hero-photos-trips">
-          <div class="photo float-a"><img src="assets/web-ph-trips-hero-1.jpg" alt=""></div>
-          <div class="photo float-b"><img src="assets/web-ph-hill-crew.jpg" alt=""></div>
-        </div>
-        <div class="hero-copy">
-          <div class="eyebrow">Beyond the Festival</div>
-          <h1 class="section-head">Our Trips.</h1>
-          <p class="lede">Small crews, wild coastlines, proper surf adventures.</p>
-        </div>
-      </div>
-
-      <!-- ---- TRIP 01 — Portugal ----
-           Aufbau jedes Trips: links Text (.trip-copy), rechts Foto-Cluster
-           (.trip-stage mit 3 Fotos). Bei der Variante .trip--rev sind Text
-           und Fotos gespiegelt. -->
-      <section class="section">
-        <div class="wrap trip">
-          <div class="trip-copy reveal">
-            <div class="label">Trip 01</div>
-            <h2>Portugal</h2>
-            <p>Endless beach breaks and long golden evenings on the wild Atlantic coast.</p>
-          </div>
-          <div class="trip-stage">
-            <div class="photo float-c"><img src="assets/web-ph-portugal-2.jpg" alt=""></div>
-            <div class="photo float-d"><img src="assets/web-ph-portugal-1.jpg" alt=""></div>
-            <div class="photo float-a"><img src="assets/web-ph-portugal-3.jpg" alt=""></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---- TRIP 02 — Morocco (gespiegelt) ---- -->
-      <section class="section">
-        <div class="wrap trip trip--rev">
-          <div class="trip-copy reveal">
-            <div class="label">Trip 02</div>
-            <h2>Morocco</h2>
-            <p>Right-hand point breaks, desert light and mint tea between sessions.</p>
-          </div>
-          <div class="trip-stage">
-            <div class="photo float-b"><img src="assets/web-ph-morocco-1.jpg" alt=""></div>
-            <div class="photo float-e"><img src="assets/web-ph-morocco-2.jpg" alt=""></div>
-            <div class="photo float-c"><img src="assets/web-ph-morocco-3.jpg" alt=""></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---- TRIP 03 — Galicia ---- -->
-      <section class="section">
-        <div class="wrap trip">
-          <div class="trip-copy reveal">
-            <div class="label">Trip 03</div>
-            <h2>Galicia</h2>
-            <p>Raw beauty of nature, dramatic sceneries, empty line-ups and powerful waves.</p>
-          </div>
-          <div class="trip-stage">
-            <div class="photo float-a"><img src="assets/web-ph-galicia-2.jpg" alt=""></div>
-            <div class="photo float-c"><img src="assets/web-ph-beach-walk.jpg" alt=""></div>
-            <div class="photo float-e"><img src="assets/web-ph-galicia-3.jpg" alt=""></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---- NEWSLETTER-FOOTER (Trips) ---- -->
-      <footer class="footer footer--center">
-        <div class="wrap" style="max-width:720px">
-          <div class="reveal">
-            <div class="eyebrow">04 · Stay in the loop</div>
-            <h2>Don't miss the next trip.</h2>
-            <p>Drop your email and we'll let you know the moment dates and spots go live.</p>
-            <!-- Newsletter → MailerLite. Die Verbindung stellt script.js her;
-                 du musst dort nur EINMAL deine MailerLite-URL eintragen
-                 (Konstante MAILERLITE_URL ganz oben in script.js). -->
-            <form class="newsletter" data-newsletter>
-              <input type="email" name="fields[email]" placeholder="your email" aria-label="your email" required>
-              <button type="submit">Keep me posted</button>
-              <!-- Spam-Falle: für Menschen unsichtbar, nur Bots füllen sie aus -->
-              <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field">
-            </form>
-          </div>
-        </div>
-      </footer>
-    </section>
-
-
-    <!-- ================================================================
-         SEITE: ABOUT US
-         ================================================================ -->
-    <section class="page" data-page="about" aria-label="About Us" hidden>
-
-      <!-- ---- HERO ---- -->
-      <div class="hero hero--sub">
-        <div class="photo-row photo-row--sub hero-photos-about">
-          <div class="photo float-a"><img src="assets/web-ph-about-hero-1.jpg" alt=""></div>
-          <div class="photo float-b"><img src="assets/web-ph-about-hero-2.jpg" alt=""></div>
-        </div>
-        <div class="hero-copy">
-          <div class="eyebrow">Who We Are</div>
-          <h1 class="section-head">About Us.</h1>
-          <p class="lede">A small crew with a soft spot for cold mornings and warm nights.</p>
-        </div>
-      </div>
-
-      <!-- ---- TEXT + FOTOS ----
-           Linke Spalte: Fließtext (hier noch Blindtext – einfach ersetzen).
-           Rechte Spalte: zwei überlappende Fotos. -->
-      <section class="section">
-        <div class="wrap about-grid">
-          <div class="about-text reveal">
-            <p>First Light is an international surf collective built on one simple thing: the love of surfing, shared with the right people. It started with a handful of close friends and two founders, Marc and Jannick, who woke up one day with the thought "Let's build a surfcrew." - First light was born, the first waves of the day, before anyone else is out.</p>
-            <p>Once a year we bring everyone together for a Surf Exploration: an adventure planned down to the last detail, so you never have to think about the house, the cars, the spots or the program. It's made for people who take surfing, and the quiet romance that comes with it, seriously.</p>
-            <p>But it was never really about the waves alone. It's about getting just as fired up for someone else's ride as for your own, about the mornings, the bonfires, the people you end up calling family by the end of the week. Community over competition, every single time.</p>
-          </div>
-          <div class="about-photos reveal reveal--d1">
-            <div class="photo float-c"><img src="assets/web-ph-about-3.jpg" alt=""></div>
-            <div class="photo float-d"><img src="assets/web-ph-about-2.jpg" alt=""></div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-
-    <!-- ================================================================
-         SEITE: CONTACT
-         ================================================================ -->
-    <section class="page" data-page="contact" aria-label="Contact" hidden>
-      <div class="contact-stage">
-
-        <!-- vier schwebende Fotos in den Ecken -->
-        <div class="photo float-a"><img src="assets/web-ph-wave-air.jpg" alt=""></div>
-        <div class="photo float-b"><img src="assets/web-ph-contact-1.jpg" alt=""></div>
-        <div class="photo float-c"><img src="assets/web-ph-galicia-1.jpg" alt=""></div>
-        <div class="photo float-d"><img src="assets/web-ph-contact-2.jpg" alt=""></div>
-
-        <!-- Kontakt-Inhalt. E-Mail-Adresse im href="mailto:…" ändern. -->
-        <div class="contact-box">
-          <div class="eyebrow">Say Hi</div>
-          <h1 class="section-head">Contact.</h1>
-          <p>Questions, ideas, or just want to come along? Reach out.</p>
-          <a class="btn" href="mailto:firstlightgang@gmail.com?subject=Hello%20First%20Light">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
-            Send us an email
-          </a>
-          <a class="btn" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
-            DM us on Instagram
-          </a>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ================================================================
-         SEITE: IMPRINT (Impressum)
-         ================================================================ -->
-    <section class="page" data-page="imprint" aria-label="Imprint" hidden>
-      <div class="imprint">
-        <div class="eyebrow">Legal</div>
-        <h1 class="section-head">Imprint.</h1>
-
-        <h2>Information pursuant to Section 5 DDG (German Digital Services Act)</h2>
-        <p>
-          First Light GbR<br>
-          Chodowieckistraße 30<br>
-          10405 Berlin<br>
-          Germany<br>
-          <br>
-          Represented by the partners:<br>
-          Marc Jerschov and Jannick Schulte
-        </p>
-
-        <h2>Contact</h2>
-        <p>
-          Phone: <a href="tel:+4915224136500">+49 1522 4136 500</a><br>
-          Email: <a href="mailto:firstlightgang@gmail.com">firstlightgang@gmail.com</a>
-        </p>
-
-        <h2>Responsible for content pursuant to Section 18 (2) MStV (German Interstate Media Treaty)</h2>
-        <p>Marc Jerschov, address as above</p>
-
-        <h2>Consumer dispute resolution</h2>
-        <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
-
-        <h2>Liability for content</h2>
-        <p>As a service provider, we are responsible for our own content on these pages in accordance with general law. However, we are not obliged to monitor transmitted or stored third-party information, or to investigate circumstances that indicate illegal activity. Upon becoming aware of any such legal violations, we will remove the content in question without delay.</p>
-
-        <h2>Liability for links</h2>
-        <p>Our website contains links to external third-party websites over whose content we have no control. We therefore accept no liability for this third-party content. Upon becoming aware of any legal violations, we will remove such links without delay.</p>
-
-        <h2>Copyright</h2>
-        <p>The content and works created by the site operators on these pages are subject to German copyright law. Contributions by third parties are marked as such.</p>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Interaktivität (Seiten umschalten, Menü, Einblenden) -->
-  <script src="script.js"></script>
+  <!-- Interaktivität (Menü, Einblenden, Newsletter) -->
+  <script src="/script.js"></script>
 </body>
 </html>

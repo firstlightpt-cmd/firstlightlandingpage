@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Imprint — First Light</title>
+  <meta name="description" content="Legal notice (Impressum) for First Light GbR, Berlin.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon_firstlight.png">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Intro-Herz nur beim ERSTEN Aufruf einer Sitzung zeigen. -->
+  <script>
+    try {
+      if (sessionStorage.getItem('fl_intro_seen')) document.documentElement.classList.add('intro-seen');
+      else sessionStorage.setItem('fl_intro_seen', '1');
+    } catch (e) {}
+  </script>
+</head>
+
+<body>
+
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__heart" viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path pathLength="1"
+            d="M133 176 C 96 150, 44 130, 30 88 C 19 53, 52 24, 82 44 C 99 55, 111 73, 121 91 C 131 71, 146 49, 171 42 C 208 31, 227 64, 209 94 C 188 130, 138 156, 105 197"
+            stroke="#F5F1E8" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="site-bg"></div>
+
+  <header class="site-header">
+    <div class="header-veil" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a href="/" aria-label="First Light – Home">
+        <img class="logo" src="/assets/firstlight-logo.png" alt="First Light">
+      </a>
+      <nav class="nav-desktop">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/trips/">Our Trips</a>
+        <a class="nav-link" href="/about/">About Us</a>
+        <a class="nav-link" href="/contact/">Contact</a>
+        <a class="nav-icon" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+      </nav>
+      <button class="burger" data-burger aria-label="Menü öffnen">
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" data-menu>
+    <nav>
+      <a class="mobile-menu__link" href="/">Home</a>
+      <a class="mobile-menu__link" href="/trips/">Our Trips</a>
+      <a class="mobile-menu__link" href="/about/">About Us</a>
+      <a class="mobile-menu__link" href="/contact/">Contact</a>
+    </nav>
+    <a class="mobile-menu__social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+      <span>@FIRSTLIGHT.PT</span>
+    </a>
+  </div>
+
+
+  <main>
+    <!-- ================================================================
+         SEITE: IMPRINT (Impressum)
+         ================================================================ -->
+    <section class="page" data-page="imprint" aria-label="Imprint">
+      <div class="imprint">
+        <div class="eyebrow">Legal</div>
+        <h1 class="section-head">Imprint.</h1>
+
+        <h2>Information pursuant to Section 5 DDG (German Digital Services Act)</h2>
+        <p>
+          First Light GbR<br>
+          Chodowieckistraße 30<br>
+          10405 Berlin<br>
+          Germany<br>
+          <br>
+          Represented by the partners:<br>
+          Marc Jerschov and Jannick Schulte
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Email: <a href="mailto:firstlightgang@gmail.com">firstlightgang@gmail.com</a>
+        </p>
+
+        <h2>Responsible for content pursuant to Section 18 (2) MStV (German Interstate Media Treaty)</h2>
+        <p>Marc Jerschov, address as above</p>
+
+        <h2>Consumer dispute resolution</h2>
+        <p>We are neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+
+        <h2>Liability for content</h2>
+        <p>As a service provider, we are responsible for our own content on these pages in accordance with general law. However, we are not obliged to monitor transmitted or stored third-party information, or to investigate circumstances that indicate illegal activity. Upon becoming aware of any such legal violations, we will remove the content in question without delay.</p>
+
+        <h2>Liability for links</h2>
+        <p>Our website contains links to external third-party websites over whose content we have no control. We therefore accept no liability for this third-party content. Upon becoming aware of any legal violations, we will remove such links without delay.</p>
+
+        <h2>Copyright</h2>
+        <p>The content and works created by the site operators on these pages are subject to German copyright law. Contributions by third parties are marked as such.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Our Trips — First Light</title>
+  <meta name="description" content="Beyond the festival: small crews, wild coastlines, proper surf adventures in Portugal, Morocco and Galicia.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon_firstlight.png">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- Intro-Herz nur beim ERSTEN Aufruf einer Sitzung zeigen. -->
+  <script>
+    try {
+      if (sessionStorage.getItem('fl_intro_seen')) document.documentElement.classList.add('intro-seen');
+      else sessionStorage.setItem('fl_intro_seen', '1');
+    } catch (e) {}
+  </script>
+</head>
+
+<body>
+
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__heart" viewBox="0 0 240 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path pathLength="1"
+            d="M133 176 C 96 150, 44 130, 30 88 C 19 53, 52 24, 82 44 C 99 55, 111 73, 121 91 C 131 71, 146 49, 171 42 C 208 31, 227 64, 209 94 C 188 130, 138 156, 105 197"
+            stroke="#F5F1E8" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="site-bg"></div>
+
+  <header class="site-header">
+    <div class="header-veil" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a href="/" aria-label="First Light – Home">
+        <img class="logo" src="/assets/firstlight-logo.png" alt="First Light">
+      </a>
+      <nav class="nav-desktop">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/trips/" aria-current="page">Our Trips</a>
+        <a class="nav-link" href="/about/">About Us</a>
+        <a class="nav-link" href="/contact/">Contact</a>
+        <a class="nav-icon" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+      </nav>
+      <button class="burger" data-burger aria-label="Menü öffnen">
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" data-menu>
+    <nav>
+      <a class="mobile-menu__link" href="/">Home</a>
+      <a class="mobile-menu__link" href="/trips/" aria-current="page">Our Trips</a>
+      <a class="mobile-menu__link" href="/about/">About Us</a>
+      <a class="mobile-menu__link" href="/contact/">Contact</a>
+    </nav>
+    <a class="mobile-menu__social" href="https://www.instagram.com/firstlight.pt/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.6"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+      <span>@FIRSTLIGHT.PT</span>
+    </a>
+  </div>
+
+
+  <main>
+    <!-- ================================================================
+         SEITE: OUR TRIPS
+         ================================================================ -->
+    <section class="page" data-page="trips" aria-label="Our Trips">
+
+      <!-- ---- HERO ---- -->
+      <div class="hero hero--sub">
+        <div class="photo-row photo-row--sub hero-photos-trips">
+          <div class="photo float-a"><img src="/assets/web-ph-trips-hero-1.jpg" alt=""></div>
+          <div class="photo float-b"><img src="/assets/web-ph-hill-crew.jpg" alt=""></div>
+        </div>
+        <div class="hero-copy">
+          <div class="eyebrow">Beyond the Festival</div>
+          <h1 class="section-head">Our Trips.</h1>
+          <p class="lede">Small crews, wild coastlines, proper surf adventures.</p>
+        </div>
+      </div>
+
+      <!-- ---- TRIP 01 — Portugal ----
+           Aufbau jedes Trips: links Text (.trip-copy), rechts Foto-Cluster
+           (.trip-stage mit 3 Fotos). Bei der Variante .trip--rev sind Text
+           und Fotos gespiegelt. -->
+      <section class="section">
+        <div class="wrap trip">
+          <div class="trip-copy reveal">
+            <div class="label">Trip 01</div>
+            <h2>Portugal</h2>
+            <p>Endless beach breaks and long golden evenings on the wild Atlantic coast.</p>
+          </div>
+          <div class="trip-stage">
+            <div class="photo float-c"><img src="/assets/web-ph-portugal-2.jpg" alt=""></div>
+            <div class="photo float-d"><img src="/assets/web-ph-portugal-1.jpg" alt=""></div>
+            <div class="photo float-a"><img src="/assets/web-ph-portugal-3.jpg" alt=""></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- TRIP 02 — Morocco (gespiegelt) ---- -->
+      <section class="section">
+        <div class="wrap trip trip--rev">
+          <div class="trip-copy reveal">
+            <div class="label">Trip 02</div>
+            <h2>Morocco</h2>
+            <p>Right-hand point breaks, desert light and mint tea between sessions.</p>
+          </div>
+          <div class="trip-stage">
+            <div class="photo float-b"><img src="/assets/web-ph-morocco-1.jpg" alt=""></div>
+            <div class="photo float-e"><img src="/assets/web-ph-morocco-2.jpg" alt=""></div>
+            <div class="photo float-c"><img src="/assets/web-ph-morocco-3.jpg" alt=""></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- TRIP 03 — Galicia ---- -->
+      <section class="section">
+        <div class="wrap trip">
+          <div class="trip-copy reveal">
+            <div class="label">Trip 03</div>
+            <h2>Galicia</h2>
+            <p>Raw beauty of nature, dramatic sceneries, empty line-ups and powerful waves.</p>
+          </div>
+          <div class="trip-stage">
+            <div class="photo float-a"><img src="/assets/web-ph-galicia-2.jpg" alt=""></div>
+            <div class="photo float-c"><img src="/assets/web-ph-beach-walk.jpg" alt=""></div>
+            <div class="photo float-e"><img src="/assets/web-ph-galicia-3.jpg" alt=""></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- NEWSLETTER-FOOTER (Trips) ---- -->
+      <footer class="footer footer--center">
+        <div class="wrap" style="max-width:720px">
+          <div class="reveal">
+            <div class="eyebrow">04 · Stay in the loop</div>
+            <h2>Don't miss the next trip.</h2>
+            <p>Drop your email and we'll let you know the moment dates and spots go live.</p>
+            <form class="newsletter" data-newsletter>
+              <input type="email" name="fields[email]" placeholder="your email" aria-label="your email" required>
+              <button type="submit">Keep me posted</button>
+              <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp-field">
+            </form>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="/script.js"></script>
+</body>
+</html>

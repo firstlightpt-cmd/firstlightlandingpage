@@ -181,6 +181,8 @@ a   { color: inherit; }
 }
 .nav-link:hover,
 .nav-icon:hover { color: var(--color-accent); }
+/* aktuelle Seite in der Navigation hervorheben (eigenständige Seiten) */
+.nav-link[aria-current="page"] { color: var(--color-accent); }
 .nav-icon { display: inline-flex; color: var(--color-ink); transition: color .2s ease; }
 
 /* Burger-Button (nur Handy). Die drei Balken haben Surfbrett-Form (clip-path). */
@@ -238,7 +240,8 @@ a   { color: inherit; }
   text-decoration: none;
   transition: color .2s ease;
 }
-.mobile-menu__link:hover { color: var(--color-gold); }
+.mobile-menu__link:hover,
+.mobile-menu__link[aria-current="page"] { color: var(--color-gold); }
 .mobile-menu__social {
   margin-top: auto;
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -866,6 +869,10 @@ a   { color: inherit; }
      komplett aus der Seite. */
   animation: loader-out .28s ease .72s forwards;   /* Ausblenden: Start bei .72s */
 }
+/* Eigenständige Seiten: das Intro-Herz nur beim ERSTEN Aufruf einer Sitzung
+   zeigen, nicht bei jedem Seitenwechsel. Das kleine Skript im <head> setzt
+   dafür die Klasse .intro-seen (per sessionStorage). */
+html.intro-seen .loader { display: none; }
 .loader::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;

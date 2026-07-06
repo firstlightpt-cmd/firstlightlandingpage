@@ -1,14 +1,18 @@
 /* ============================================================================
    FIRST LIGHT — Interaktivität (reines JavaScript, ohne Framework)
    ----------------------------------------------------------------------------
-   Ersetzt die frühere Claude-Design-Komponente. Vier Aufgaben:
-     1. SEITEN UMSCHALTEN  – Klick auf Navi zeigt die passende Seite
+   Seit dem Umbau auf EIGENSTÄNDIGE SEITEN (Home, /trips/, /about/, /contact/,
+   /imprint/) übernimmt die Navigation der Browser selbst – jeder Menülink ist
+   ein echter Link auf eine eigene Adresse. Dieses Skript kümmert sich nur noch
+   um vier Dinge:
+     1. LADE-SCREEN        – das Intro-Herz nach der Animation aus dem DOM nehmen
      2. MOBILE MENÜ        – Burger öffnet/schließt das Vollbild-Menü
      3. EINBLENDEN         – Elemente mit class="reveal" beim Scrollen zeigen
      4. VIDEO              – Reel-Video automatisch starten (sobald eins da ist)
+     5. NEWSLETTER         – Formular an MailerLite schicken
 
-   Normalerweise musst du hier nichts ändern – Texte/Bilder stehen in der
-   index.html, das Aussehen in styles.css.
+   Normalerweise musst du hier nichts ändern – Texte/Bilder stehen in den
+   HTML-Dateien, das Aussehen in styles.css.
    ============================================================================ */
 
 /* ============================================================================
@@ -25,38 +29,19 @@ const MAILERLITE_URL = 'https://assets.mailerlite.com/jsonp/2480058/forms/191783
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const body   = document.body;
-  const pages  = Array.from(document.querySelectorAll('[data-page]'));
-  const menu   = document.querySelector('[data-menu]');
+  const body = document.body;
+  const menu = document.querySelector('[data-menu]');
 
-  /* ---- 0. LADE-SCREEN AUFRÄUMEN -------------------------------------------
+  /* ---- 1. LADE-SCREEN AUFRÄUMEN -------------------------------------------
      Der Loader blendet sich per CSS nach ~1 s aus, bliebe aber unsichtbar
      im DOM liegen. Safari 26 (iPhone) bezieht unsichtbare fixed-Elemente
-     in die Färbung der Statusleiste ein – deshalb fliegt er ganz raus. */
+     in die Färbung der Statusleiste ein – deshalb fliegt er ganz raus.
+     (Ab dem 2. Seitenaufruf einer Sitzung ist er per CSS eh ausgeblendet –
+     siehe .intro-seen in styles.css und das Skript im <head>.) */
   setTimeout(() => {
     const loader = document.querySelector('.loader');
     if (loader) loader.remove();
   }, 1200);
-
-
-  /* ---- 1. SEITEN UMSCHALTEN ----------------------------------------------
-     Jeder Link mit data-goto="home|trips|about|contact" zeigt die zugehörige
-     Seite und versteckt die anderen. */
-  function goTo(id) {
-    pages.forEach(page => {
-      page.hidden = (page.dataset.page !== id);
-    });
-    closeMenu();
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    revealInView();   // was auf der neuen Seite schon sichtbar ist, gleich zeigen
-  }
-
-  document.querySelectorAll('[data-goto]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      goTo(link.getAttribute('data-goto'));
-    });
-  });
 
 
   /* ---- 2. MOBILE MENÜ ----------------------------------------------------- */
@@ -87,14 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { rootMargin: '0px 0px -40px 0px' });
 
-  function revealInView() {
-    document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
-      // Elemente auf versteckten Seiten überspringen …
-      if (el.offsetParent === null) return;
-      observer.observe(el);
-    });
-  }
-  revealInView();
+  document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => observer.observe(el));
 
   // Sicherheitsnetz: nach 3 s alles zeigen, falls etwas nicht ausgelöst hat
   setTimeout(() => {
@@ -135,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // An MailerLite senden. "no-cors" heißt: wir dürfen die Antwort nicht
       // lesen (deshalb kein Fehler-Handling), die Anmeldung geht aber durch.
-      const body = new URLSearchParams({ 'fields[email]': email });
+      const payload = new URLSearchParams({ 'fields[email]': email });
       try {
-        await fetch(MAILERLITE_URL, { method: 'POST', mode: 'no-cors', body });
+        await fetch(MAILERLITE_URL, { method: 'POST', mode: 'no-cors', body: payload });
       } catch (_) { /* Antwort nicht lesbar – bewusst ignoriert */ }
 
       // Formular durch Danke-Meldung ersetzen
