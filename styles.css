@@ -35,7 +35,7 @@
   --color-navy:       var(--color-ocean-blue); /* Footer-Hintergrund → Ocean Blue */
   --color-accent:     var(--color-sunrise-orange); /* kleine Labels & Hover → Sunrise Orange */
   --color-gold:       var(--color-sunrise-orange); /* Buttons → Sunrise Orange */
-  --color-gold-hover: #f5813a;  /* Sunrise Orange heller – Button beim Drüberfahren */
+  --color-gold-hover: #ffa971;  /* Sunrise Orange heller – Button beim Drüberfahren */
   --color-gold-soft:  var(--color-sunrise-orange); /* Button im dunklen Footer → Sunrise Orange */
   --color-cream:      var(--color-sea-salt);  /* heller Text auf dunklem Grund → Sea Salt */
   --color-cream-dim:  rgba(245,241,232,.78);  /* Sea Salt, leicht transparent */
@@ -48,7 +48,7 @@
      z. B. background: var(--color-ocean-blue); schreiben. */
   --color-ocean-blue:     #1F2C43;  /* Ocean Blue    – dunkles Blau */
   --color-sea-salt:       #F5F1E8;  /* Sea Salt      – warmes Off-White */
-  --color-sunrise-orange: #F0660D;  /* Sunrise Orange – kräftiger Akzent */
+  --color-sunrise-orange: #f89254;  /* Sunrise Orange – kräftiger Akzent */
   --color-onyx-grey:      #454545;  /* Onyx Grey     – neutrales Dunkelgrau */
 
   /* ----- Schriften ----------------------------------------------------------
@@ -89,7 +89,16 @@ html { background: #ffffff; }
    assets/web-bg.jpg ersetzen oder den Pfad unten ändern. */
 .site-bg {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Feste Höhe statt bottom:0 (früher inset:0). Am Handy ändert das Ein-/
+     Ausblenden der Safari-Adressleiste sonst laufend die Elementhöhe, wodurch
+     das "cover"-Hintergrundbild beim Scrollen sichtbar rein-/rauszoomt.
+     100lvh ist die stabile, größtmögliche Viewport-Höhe → kein Zoomen mehr.
+     100vh dient als Fallback für ältere Browser ohne lvh-Einheit. */
+  height: 100vh;
+  height: 100lvh;
   z-index: -1;
   /* Das Bild liegt auf ::before, damit dieses fixed-Element für Safaris
      Statusleisten-Sampling unsichtbar bleibt (siehe .site-header). */
@@ -262,10 +271,11 @@ a   { color: inherit; }
   letter-spacing: -.02em;
   color: var(--color-ink);
 }
-/* --- Display-Überschrift der Unterseiten ("Our Trips." / "About Us." …) --- */
+/* --- Display-Überschrift der Unterseiten ("Our Trips." / "About Us." …) ---
+   Bewusst gleiche Größe wie .h1-display ("Surf Days." auf der Startseite). */
 .section-head {
   margin: 0;
-  font: italic 300 clamp(56px, 15vw, 84px)/0.94 var(--font-serif);
+  font: italic 300 clamp(64px, 17vw, 96px)/0.92 var(--font-serif);
   letter-spacing: -.02em;
   color: var(--color-ink);
 }
@@ -489,7 +499,7 @@ a   { color: inherit; }
 }
 .price-row:last-child { border-bottom: none; }
 .price-row__label { font: 400 19px/1.2 var(--font-serif); color: var(--color-ink); }
-.price-row__value { font: 500 24px/1 var(--font-serif); color: var(--color-blue); white-space: nowrap; }
+.price-row__value { font: 500 24px/1 var(--font-serif); color: var(--color-ink); white-space: nowrap; }
 
 /* --- Schluss-Aufruf (Closing CTA) ----------------------------------------- */
 .closing { padding: 6px 0 64px; text-align: center; }
@@ -549,7 +559,7 @@ a   { color: inherit; }
 .trip-copy { position: relative; z-index: 2; }
 .trip-copy .eyebrow,
 .trip-copy .label { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--color-accent); margin-bottom: 8px; }
-.trip-copy h2 { margin: 0 0 8px; font: 400 clamp(34px,4.5vw,52px)/1.02 var(--font-serif); color: var(--color-blue); }
+.trip-copy h2 { margin: 0 0 8px; font: 400 clamp(34px,4.5vw,52px)/1.02 var(--font-serif); color: var(--color-ink); }
 .trip-copy p  { margin: 0; font: 400 18px/1.4 var(--font-serif); color: var(--color-muted); max-width: 300px; }
 
 /* Foto-Cluster eines Trips (drei überlappende Fotos).
@@ -733,7 +743,7 @@ a   { color: inherit; }
   .page[data-page="home"] .hero { min-height: max(92vh, 780px); }
   .hero-copy { max-width: 760px; margin: 0 auto; padding: 0 24px; }
   .h1-display  { font-size: clamp(96px, 9vw, 156px); }
-  .section-head{ font-size: clamp(54px, 6vw, 92px); }
+  .section-head{ font-size: clamp(96px, 9vw, 156px); }
   .lede { font-size: 24px; max-width: 520px; }
 
   /* mehr Luft zwischen den Sektionen */
