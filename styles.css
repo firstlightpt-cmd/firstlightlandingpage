@@ -31,7 +31,7 @@
   --color-ink:        #211F18;  /* sehr dunkles Braun – Haupt-Überschriften & Text */
   --color-body:       var(--color-onyx-grey);  /* Fließtext → Onyx Grey */
   --color-muted:      var(--color-onyx-grey);  /* gedämpfter Text (Untertitel / Lede) → Onyx Grey */
-  --color-blue:       #123A5A;  /* Blau – Sektions-Überschriften & Preise */
+  --color-blue:       #4494a8;  /* Blau – Sektions-Überschriften & Preise */
   --color-navy:       var(--color-ocean-blue); /* Footer-Hintergrund → Ocean Blue */
   --color-accent:     var(--color-sunrise-orange); /* kleine Labels & Hover → Sunrise Orange */
   --color-gold:       var(--color-sunrise-orange); /* Buttons → Sunrise Orange */
@@ -48,7 +48,7 @@
      z. B. background: var(--color-ocean-blue); schreiben. */
   --color-ocean-blue:     #1F2C43;  /* Ocean Blue    – dunkles Blau */
   --color-sea-salt:       #F5F1E8;  /* Sea Salt      – warmes Off-White */
-  --color-sunrise-orange: #f89254;  /* Sunrise Orange – kräftiger Akzent */
+  --color-sunrise-orange: #f5890a;  /* Sunrise Orange – kräftiger Akzent */
   --color-onyx-grey:      #454545;  /* Onyx Grey     – neutrales Dunkelgrau */
 
   /* ----- Schriften ----------------------------------------------------------
