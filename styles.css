@@ -31,7 +31,7 @@
   --color-ink:        #211F18;  /* sehr dunkles Braun – Haupt-Überschriften & Text */
   --color-body:       var(--color-onyx-grey);  /* Fließtext → Onyx Grey */
   --color-muted:      var(--color-onyx-grey);  /* gedämpfter Text (Untertitel / Lede) → Onyx Grey */
-  --color-blue:       #4494a8;  /* Blau – Sektions-Überschriften & Preise */
+  --color-blue:       #2F3F4C;  /* Blau – Footer, Loader & Imprint-Links */
   --color-navy:       var(--color-ocean-blue); /* Footer-Hintergrund → Ocean Blue */
   --color-accent:     var(--color-sunrise-orange); /* kleine Labels & Hover → Sunrise Orange */
   --color-gold:       var(--color-sunrise-orange); /* Buttons → Sunrise Orange */
@@ -46,7 +46,7 @@
   /* ----- FIRST LIGHT COLOR IDENTITY -----------------------------------------
      Die offiziellen Markenfarben. Um sie irgendwo zu verwenden, einfach
      z. B. background: var(--color-ocean-blue); schreiben. */
-  --color-ocean-blue:     #1F2C43;  /* Ocean Blue    – dunkles Blau */
+  --color-ocean-blue:     #2F3F4C;  /* Ocean Blue    – dunkles Blau */
   --color-sea-salt:       #F5F1E8;  /* Sea Salt      – warmes Off-White */
   --color-sunrise-orange: #f5890a;  /* Sunrise Orange – kräftiger Akzent */
   --color-onyx-grey:      #454545;  /* Onyx Grey     – neutrales Dunkelgrau */
@@ -222,7 +222,7 @@ a   { color: inherit; }
 .mobile-menu::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
-  background: rgba(31,44,67,.96);   /* Ocean Blue (#1F2C43), leicht transparent */
+  background: rgba(47,63,76,.96);   /* Ocean Blue (#2F3F4C), leicht transparent */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -624,7 +624,7 @@ a   { color: inherit; }
   font: 400 15px/1.65 var(--font-serif);
   color: var(--color-body);
 }
-.imprint a { color: var(--color-accent); }
+.imprint a { color: var(--color-blue); }
 
 .footer--center { padding: 50px 0 46px; }
 .footer--center .wrap { text-align: center; }
@@ -734,6 +734,9 @@ a   { color: inherit; }
   [data-page="about"] .hero--sub,
   [data-page="trips"] .hero--sub { min-height: auto; padding-bottom: 0; }
   [data-page="about"] .section { padding: 24px 0; }  /* wie bei Trips */
+
+  /* Kontakt: ganz leicht mehr Platz über "Say Hi" (Inhalt etwas nach unten) */
+  .contact-stage { padding-top: 124px; }
 
   /* Kontakt: Eck-Fotos etwas größer UND weiter aus der Mitte gerückt
      (obere zwei höher, untere zwei tiefer), damit sie die Buttons nicht überlappen */
