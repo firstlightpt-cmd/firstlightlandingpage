@@ -463,8 +463,11 @@ a   { color: inherit; }
 }
 .reel__hint { font: 500 10px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: #5b6b73; }
 
-/* --- Crew-Fotoreihe (3 nebeneinander) ------------------------------------- */
-.crew { display: flex; gap: 12px; margin-top: 34px; }
+/* --- Crew-Fotoreihe (3 nebeneinander) -------------------------------------
+   margin-top gibt der Fotoreihe Luft nach oben (zum Zitat); der Abstand nach
+   unten (zur Programm-Sektion) wird über section--tight-top/-bottom klein
+   gehalten, damit oben und unten ungefähr gleich viel Luft ist. */
+.crew { display: flex; gap: 12px; margin-top: 60px; }
 .crew .photo { flex: 1; height: 128px; }
 
 /* --- Key Facts (Raster aus kleinen Kästchen) ------------------------------ */
@@ -478,14 +481,22 @@ a   { color: inherit; }
 .keyfact__label { font: 600 10px/1 var(--font-sans); letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 9px; }
 .keyfact__value { font: 400 19px/1.15 var(--font-serif); color: var(--color-ink); }
 
-/* --- Programm (nummerierte Liste) ----------------------------------------- */
-.programme { border-top: 1px solid var(--color-line); }
+/* --- Programm (nummerierte Liste) -----------------------------------------
+   Weiße Karte wie bei Key Facts & Preisen: hebt die Liste vom Wasser-
+   Hintergrund ab. Die feinen Linien trennen die einzelnen Punkte. */
+.programme {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  padding: 4px 24px;
+}
 .programme__item {
   display: flex; align-items: baseline; gap: 16px;
   padding: 15px 0;
   border-bottom: 1px solid var(--color-line);
   break-inside: avoid;          /* hält eine Zeile in einer Spalte zusammen */
 }
+.programme__item:last-child { border-bottom: none; }
 .programme__num  { font: 500 11px/1 var(--font-mono); color: var(--color-accent); width: 22px; }
 .programme__name { font: 400 19px/1 var(--font-serif); color: var(--color-ink); }
 .programme__name--italic { font-style: italic; }
@@ -507,7 +518,7 @@ a   { color: inherit; }
 .closing .meta { margin: 0 0 24px; }
 
 /* --- Footer (dunkelblau) -------------------------------------------------- */
-.footer { background: var(--color-navy); padding: 56px 0 44px; color: var(--color-cream); }
+.footer { background: var(--color-blue); padding: 56px 0 44px; color: var(--color-cream); }
 .footer .eyebrow { color: var(--color-gold-soft); margin-bottom: 10px; }
 .footer h2 { margin: 0 0 14px; font: 400 26px/1.12 var(--font-serif); color: var(--color-cream); }
 .footer p  { margin: 0 0 26px; font: 400 15px/1.5 var(--font-serif); color: var(--color-cream-dim); max-width: 440px; }
@@ -606,7 +617,7 @@ a   { color: inherit; }
   font: 600 13px/1 var(--font-sans);
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--color-blue);
+  color: var(--color-accent);
 }
 .imprint p {
   margin: 0;
@@ -751,6 +762,10 @@ a   { color: inherit; }
   .section--tight-bottom { padding-bottom: 34px; }
   .section--tight-top    { padding-top: 30px; }
 
+  /* Our Trips: etwas kompaktere Abstände zwischen den einzelnen Trips
+     (nur Desktop – am Handy gelten die Regeln weiter oben). */
+  [data-page="trips"] .section { padding: 56px 0; }
+
   /* größere Überschriften & Zitat */
   .h2 { font-size: 40px; }
   .quote { font-size: 46px; text-align: center; max-width: 900px; margin: 0 auto; }
@@ -851,7 +866,7 @@ a   { color: inherit; }
 .loader::before {
   content: "";
   position: absolute; inset: 0; z-index: -1;
-  background: var(--color-ocean-blue); /* Ocean Blue (wie Menü/Footer) */
+  background: var(--color-blue); /* Blau (wie Footer) */
 }
 .loader__heart { width: clamp(78px, 22vw, 112px); height: auto; overflow: visible; }
 .loader__heart path {
