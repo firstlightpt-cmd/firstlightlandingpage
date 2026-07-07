@@ -124,15 +124,20 @@
         </div>
       </div>
 
-      <!-- ---- REEL / VIDEO ----
-           Läuft stumm, automatisch und in Endlosschleife (autoplay/loop/muted;
-           playsinline = spielt am iPhone im Element statt Vollbild).
-           Video tauschen: neue Datei nach assets/ legen und src unten anpassen.
-           TEMPO: Original ist sehr groß (~22 MB) – vor dem Live-Gang unbedingt
-           komprimieren (siehe Hinweise, die ich dir gegeben habe). -->
+      <!-- ---- REEL / VIDEO (über Mux gehostet) ----
+           <mux-video> verhält sich wie ein normales <video>, streamt aber von
+           Mux (playback-id). Läuft stumm & in Endlosschleife (muted/loop) und
+           spielt NUR, wenn es im Bild ist – das steuert script.js per
+           IntersectionObserver (spart Daten/Akku).
+           Anderes Video: einfach die playback-id unten austauschen.
+           Das Mux-Skript wird unten vor script.js geladen. -->
       <div class="reel-wrap">
         <div class="reel reveal">
-          <video src="/assets/reel.mp4" poster="/assets/reel-poster.jpg" autoplay loop muted playsinline preload="metadata"></video>
+          <mux-video
+            data-reel-video
+            playback-id="4AOq1pq1vn4UP8Vb3qW016b01FLZZdl9MOua300U01FttX8"
+            poster="/assets/reel-poster.jpg"
+            muted loop playsinline preload="none"></mux-video>
         </div>
       </div>
 
@@ -236,7 +241,9 @@
     </section>
   </main>
 
-  <!-- Interaktivität (Menü, Einblenden, Newsletter) -->
+  <!-- Mux-Player-Baustein für das Reel-Video (<mux-video>). Lädt von jsDelivr. -->
+  <script src="https://cdn.jsdelivr.net/npm/@mux/mux-video@latest"></script>
+  <!-- Interaktivität (Menü, Einblenden, Newsletter, Reel-Video) -->
   <script src="/script.js"></script>
 </body>
 </html>

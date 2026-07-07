@@ -463,9 +463,19 @@ a   { color: inherit; }
 .reel {
   position: relative;
   width: 100%; aspect-ratio: 9/16;
-  overflow: hidden; background: #d4dadd;
+  overflow: hidden;
+  /* Poster als Hintergrund: sofort sichtbar, während Mux lädt – und als
+     Rückfall, falls das Video-Skript mal nicht lädt. */
+  background: #d4dadd url('/assets/reel-poster.jpg') center center / cover no-repeat;
 }
-.reel video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+.reel video,
+.reel mux-video {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover;            /* füllt das 9/16-Feld, beschneidet Überstand */
+  --media-object-fit: cover;    /* dito für den Mux-Baustein */
+  display: block;
+}
 .reel__overlay {
   position: absolute; inset: 0; z-index: 2;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;

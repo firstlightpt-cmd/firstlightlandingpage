@@ -123,4 +123,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
+  /* ---- 6. REEL-VIDEO: nur abspielen, wenn im Bild -------------------------
+     Das Reel (<mux-video>, von Mux gestreamt) läuft nur, solange es sichtbar
+     ist – scrollt man weg, pausiert es (spart Daten & Akku). Loop/muted stehen
+     als Attribute am Element. whenDefined wartet, bis das Mux-Skript geladen
+     ist; auf Seiten ohne Reel passiert nichts. */
+  const reel = document.querySelector('[data-reel-video]');
+  if (reel && window.customElements && customElements.whenDefined) {
+    customElements.whenDefined('mux-video').then(() => {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const p = reel.play();
+            if (p && p.catch) p.catch(() => {});   // Autoplay-Blockade still ignorieren
+          } else {
+            reel.pause();
+          }
+        });
+      }, { threshold: 0.25 });   // ab ~25% Sichtbarkeit spielen
+      io.observe(reel);
+    });
+  }
+
 });
