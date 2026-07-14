@@ -124,11 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ---- 6. REEL-VIDEO: nur abspielen, wenn im Bild -------------------------
-     Das Reel (<mux-video>, von Mux gestreamt) läuft nur, solange es sichtbar
-     ist – scrollt man weg, pausiert es (spart Daten & Akku). Loop/muted stehen
-     als Attribute am Element. whenDefined wartet, bis das Mux-Skript geladen
-     ist; auf Seiten ohne Reel passiert nichts. */
+  /* ---- 6. REEL-VIDEO: sofort starten, nur spielen wenn sichtbar -----------
+     Das Reel (<mux-video>, von Mux gestreamt) puffert dank preload="auto"
+     schon im Hintergrund und startet über Mux-Streaming zuerst in niedriger
+     Auflösung (schneller Start, keine Wartezeit) und lädt dann live auf die
+     beste Qualität hoch. Hier kümmern wir uns nur ums Abspielen: es läuft nur,
+     solange es (fast) sichtbar ist – scrollt man weg, pausiert es (spart
+     Daten & Akku). rootMargin 200px = ein Tick früher starten, damit es sich
+     beim Ankommen bereits sofort anfühlt. */
   const reel = document.querySelector('[data-reel-video]');
   if (reel && window.customElements && customElements.whenDefined) {
     customElements.whenDefined('mux-video').then(() => {
@@ -141,8 +144,20 @@ document.addEventListener('DOMContentLoaded', () => {
             reel.pause();
           }
         });
-      }, { threshold: 0.25 });   // ab ~25% Sichtbarkeit spielen
+      }, { threshold: 0, rootMargin: '200px 0px' });
       io.observe(reel);
+
+      // Zurück aus einem anderen Tab: Browser pausieren Videos in Hintergrund-
+      // Tabs; der Observer allein löst beim Zurückkehren nicht neu aus. Ist das
+      // Reel dann sichtbar, wieder anspielen.
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) return;
+        const r = reel.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) {
+          const p = reel.play();
+          if (p && p.catch) p.catch(() => {});
+        }
+      });
     });
   }
 
