@@ -283,7 +283,7 @@ a   { color: inherit; }
   margin-bottom: 18px;   /* Abstand über der Überschrift (= Abstand darunter, s. .lede) */
 }
 /* Variante mit etwas weniger Abstand (in Sektionen) */
-.eyebrow--section { letter-spacing: .18em; margin-bottom: 8px; }
+.eyebrow--section { letter-spacing: .18em; margin-bottom: 14px; }
 
 /* --- große Display-Überschrift auf der Startseite ("Surf Days.") ---------- */
 .h1-display {
@@ -614,9 +614,10 @@ a   { color: inherit; }
 .footer-legal {
   margin-top: 44px;
   display: flex;
+  flex-wrap: wrap;            /* mehrere Rechts-Links dürfen am Handy umbrechen */
   align-items: center;
   justify-content: flex-end;
-  gap: 18px;
+  gap: 12px 18px;
 }
 .footer-legal a {
   font: 500 11px/1 var(--font-sans);
@@ -699,6 +700,228 @@ a   { color: inherit; }
 .contact-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-blue); transition: color .2s ease; }
 .contact-link:hover { color: var(--color-accent); }
 .contact-link span { font: 600 12px var(--font-sans); letter-spacing: .08em; }
+
+
+/* ============================================================================
+   10b. CALENDAR  (Shop-Seite /calendar/: Galerie + Produktinfo + Checkout)
+   ----------------------------------------------------------------------------
+   Aufbau: .product (Galerie | Infos). Der Checkout selbst ist ein Klick:
+   "Buy now" führt auf die Bezahlseite des Anbieters (PAYMENT_LINK in script.js).
+   Mobile-first; die Desktop-Anpassungen stehen am Ende dieses Abschnitts.
+   Preis & Texte änderst du in calendar/index.html.
+   ============================================================================ */
+.product { padding: calc(96px + env(safe-area-inset-top, 0px)) 0 36px; }
+.product__grid { display: grid; gap: 28px; }
+/* min-width:0 → Galerie/Vorschaubilder dürfen die Spalte nicht breiter
+   machen als den Bildschirm (sonst läuft die Seite seitlich über). */
+.product__grid > * { min-width: 0; }
+
+/* --- Galerie: wischbare Bildspur + Pfeile + Zähler --------------------------- */
+.gallery { position: relative; }
+.gallery__stage {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: linear-gradient(160deg, #ebe5da 0%, #d6cdbd 100%);   /* sandfarbene "Tischfläche" */
+}
+.gallery__track {
+  display: flex;
+  aspect-ratio: 1 / 1;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;     /* rastet beim Wischen auf jedem Foto ein */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;    /* Wischen am Ende löst nicht "Zurück" aus */
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+/* Spur erst zeigen, wenn das Skript sie aufs erste echte Foto gestellt hat
+   (Endlos-Karussell: davor liegt eine Kopie des letzten Fotos) */
+.gallery__track { visibility: hidden; }
+.gallery__track.is-ready { visibility: visible; }
+.gallery__track:focus-visible { outline: 3px solid var(--color-sunrise-orange); outline-offset: -3px; }
+.gallery__slide {
+  flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always;
+  container-type: size;                 /* Innenmaße (cqw/cqh) beziehen sich auf die Folie */
+  display: flex; align-items: center; justify-content: center;
+}
+.gallery__slide > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* --- Platzhalter-Design: eine Kalenderseite im A3-Querformat (1.414 : 1) ----
+   Liegt wie ein echtes Produkt auf einer sandfarbenen Fläche. Alle Innenmaße
+   sind in "em" angegeben und em = 1 % der Folienbreite → skaliert mit. */
+.calpage {
+  position: relative;
+  width: min(86cqw, 80cqh * 1.4142);    /* passt in Breite UND Höhe */
+  aspect-ratio: 1.4142;
+  font-size: 1cqw;
+  display: flex; flex-direction: column;
+  background: #fff; border-radius: 1em; overflow: hidden;
+  box-shadow: 0 2.6em 5em -2em rgba(20,40,60,.5), 0 .4em 1em rgba(0,0,0,.08);
+}
+/* Bindung mit Löchern am oberen Rand */
+.calpage::before {
+  content: ""; position: relative; z-index: 2; flex: none; height: 2.4em;
+  background: #f1ece3 radial-gradient(circle at center, #c9c0b0 23%, transparent 28%) 0 50% / 5em 100% repeat-x;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+/* Bildfläche als Design-Platzhalter: neutrales Grau mit Bild-Symbol */
+.calpage__photo, .calpage--cover::after {
+  background: #e7e3db url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8b0a1' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Ccircle cx='8.5' cy='9' r='1.6'/%3E%3Cpath d='M21 16l-5.5-5.5L7 19'/%3E%3C/svg%3E") center / 11em no-repeat;
+}
+.calpage__photo { position: relative; flex: 0 0 60%; }
+.calpage__foot {
+  flex: 1 1 auto; min-height: 0;
+  display: grid; grid-template-columns: 1.15fr .85fr; gap: 3em; align-items: center;
+  padding: 2.2em 3.6em 2.6em;
+}
+.calpage__month { display: flex; flex-direction: column; gap: 1.1em; min-width: 0; }
+.calpage__month em {
+  font: italic 300 7.4em/0.95 var(--font-serif); letter-spacing: -.02em; color: var(--color-ink);
+}
+.calpage__month span {
+  font: 400 2.05em/1.35 var(--font-serif); color: var(--color-muted);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.calpage__grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: .45em .7em;
+  text-align: center;
+  font: 500 1.85em/1.3 var(--font-sans); color: var(--color-muted);
+}
+.calpage__grid b { font-weight: 600; color: var(--color-ink); }
+/* Cover: ganze Seite Platzhalter-Fläche, Titel unten links */
+.calpage--cover::after { content: ""; position: absolute; inset: 2.4em 0 0 0; }
+.calpage__cover {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4em 4.6em;
+  color: var(--color-ink);
+}
+.calpage__brand { font: 600 2em/1 var(--font-sans); letter-spacing: .26em; text-transform: uppercase; color: var(--color-sunrise-orange); margin-bottom: 1.8em; }
+.calpage__title { font: italic 300 9.2em/0.95 var(--font-serif); letter-spacing: -.02em; }
+.calpage__year  { font: 300 5.4em/1 var(--font-serif); margin-top: .35em; color: var(--color-muted); }
+.gallery__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(245,241,232,.94);  /* Sea Salt, fast deckend */
+  color: var(--color-ink);
+  box-shadow: 0 6px 18px rgba(20,40,60,.25);
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+.gallery__arrow--prev { left: 12px; }
+.gallery__arrow--next { right: 12px; }
+@media (hover: hover) {
+  .gallery__arrow:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+}
+.gallery__counter {
+  position: absolute; right: 14px; bottom: 12px;
+  font: 600 11px/1 var(--font-sans); letter-spacing: .12em;
+  color: var(--color-sea-salt);
+  background: rgba(33,31,24,.55);
+  padding: 7px 10px; border-radius: 999px;
+  pointer-events: none;
+}
+/* Vorschaubilder unter der Galerie */
+.gallery__thumbs {
+  display: flex; gap: 8px;
+  margin-top: 10px; padding: 2px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.gallery__thumbs::-webkit-scrollbar { display: none; }
+.gallery__thumb {
+  flex: 0 0 76px; aspect-ratio: 1.4142;    /* quer wie der Kalender */
+  padding: 0; border: 2px solid transparent; border-radius: 10px;
+  overflow: hidden; background: #fff;
+  cursor: pointer; opacity: .6;
+  transition: opacity .2s ease, border-color .2s ease;
+}
+.gallery__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Mini-Kalenderseite als Platzhalter: graue Bildfläche oben, weiß unten */
+.thumb-page { display: block; width: 100%; height: 100%; background: linear-gradient(#e7e3db 0 62%, #fff 62%); }
+.thumb-page--cover { background: #e7e3db; }
+.gallery__thumb.is-active { opacity: 1; border-color: var(--color-sunrise-orange); }
+
+/* --- Produkt-Infos --------------------------------------------------------- */
+.product__info { display: flex; flex-direction: column; }
+.product__info .eyebrow { margin-bottom: 24px; }   /* mehr Luft zur großen Überschrift */
+.product__title {
+  margin: 0 0 22px;
+  font: italic 300 clamp(44px, 10vw, 60px)/0.96 var(--font-serif);
+  letter-spacing: -.02em;
+  color: var(--color-ink);
+}
+/* Preis-Block direkt über dem Kaufbutton: groß, darunter der Zusatz */
+.price { display: flex; flex-direction: column; gap: 6px; margin: 0 0 16px; }
+.price__value { font: 500 44px/1 var(--font-serif); letter-spacing: -.01em; color: var(--color-ink); }
+.price__note  { font: 600 11px/1.5 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--color-muted); }
+
+.product__desc { margin: 0 0 22px; font: 400 17px/1.55 var(--font-serif); color: var(--color-body); max-width: 480px; }
+
+/* Produktdaten-Liste (Format, Seiten, …) */
+.specs { list-style: none; margin: 0 0 26px; padding: 0; border-top: 1px solid var(--color-line); }
+.specs li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 12px 0; border-bottom: 1px solid var(--color-line);
+  font: 400 15px/1.4 var(--font-serif); color: var(--color-ink);
+  text-align: right;                       /* Werte rechtsbündig */
+}
+.specs li span:first-child {
+  flex: 0 0 auto; text-align: left;
+  font: 600 11px/1.4 var(--font-sans); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Versand-Hinweis ("🎁 Ships 13 December …") – eine ruhige Zeile über dem Preis */
+.preorder {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 22px;
+  font: 500 14px/1.4 var(--font-sans);
+  color: var(--color-ink);
+}
+.preorder span { font-size: 18px; line-height: 1; }
+
+/* Vorbestell-Hinweis unter dem Kaufbutton */
+.product__note { margin: 14px 0 0; font: 400 13px/1.55 var(--font-sans); color: var(--color-muted); }
+
+/* breiter Haupt-Button (ganze Breite) */
+.btn--block { width: 100%; justify-content: center; padding: 18px 24px; font-size: 14px; }
+
+
+/* --- Bezahlen: Hinweis, Zahlungsarten, Sicherheits-Text -------------------- */
+/* Hinweis unter "Buy now", solange noch kein Zahlungsanbieter angebunden ist */
+.pay-notice {
+  margin-top: 12px; padding: 14px 16px; border-radius: 12px;
+  background: rgba(245,137,10,.12);
+  font: 400 14px/1.5 var(--font-serif); color: var(--color-ink);
+}
+.pay-notice[hidden] { display: none; }
+
+/* schlanker Footer (nur Imprint + Instagram) */
+.footer--slim { padding: 28px 0; }
+.footer--slim .footer-legal { margin-top: 0; }
+
+/* --- Desktop-Anpassungen der Shop-Seite ------------------------------------ */
+@media (min-width: 900px) {
+  /* Kompakt genug, dass Galerie + alle Infos auf einen Bildschirm passen */
+  .product { padding: 102px 0 40px; }
+  .product__grid { grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 4.5vw, 64px); align-items: start; }
+  .product__info { position: sticky; top: 86px; }    /* bleibt beim Scrollen neben der Galerie stehen */
+  .gallery__track { aspect-ratio: 4 / 3; max-height: calc(100vh - 196px); }
+  .gallery__thumb { flex-basis: 88px; border-radius: 12px; }
+  .gallery__arrow { width: 46px; height: 46px; }
+  .product__info .eyebrow { margin-bottom: 16px; }
+  .product__title { font-size: clamp(44px, 3.8vw, 54px); margin-bottom: 18px; }
+  .product__desc { font-size: 16px; line-height: 1.6; margin-bottom: 20px; max-width: 460px; }
+  .specs { margin-bottom: 24px; }
+  .specs li { padding: 10px 0; font-size: 15px; }
+  .preorder { margin-bottom: 16px; font-size: 13px; }
+  .price { margin-bottom: 14px; }
+  .price__value { font-size: 46px; }
+  .btn--block { padding: 16px 22px; }
+  .product__note { margin-top: 12px; }
+}
 
 
 /* ============================================================================
