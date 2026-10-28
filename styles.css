@@ -853,9 +853,9 @@ a   { color: inherit; }
   color: var(--color-ink);
 }
 /* Preis-Block direkt über dem Kaufbutton: groß, darunter der Zusatz */
-.price { display: flex; flex-direction: column; gap: 6px; margin: 0 0 16px; }
-.price__value { font: 500 44px/1 var(--font-serif); letter-spacing: -.01em; color: var(--color-ink); }
-.price__note  { font: 600 11px/1.5 var(--font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--color-muted); }
+.price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 18px; }
+.price__value { font: 400 44px/1 var(--font-serif); letter-spacing: -.01em; color: var(--color-ink); }
+.price__note  { font: 400 14px/1.4 var(--font-sans); color: var(--color-muted); }
 
 .product__desc { margin: 0 0 22px; font: 400 17px/1.55 var(--font-serif); color: var(--color-body); max-width: 480px; }
 
@@ -864,12 +864,11 @@ a   { color: inherit; }
 .specs li {
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
   padding: 12px 0; border-bottom: 1px solid var(--color-line);
-  font: 400 15px/1.4 var(--font-serif); color: var(--color-ink);
+  font: 400 14px/1.4 var(--font-sans); color: var(--color-ink);
   text-align: right;                       /* Werte rechtsbündig */
 }
 .specs li span:first-child {
   flex: 0 0 auto; text-align: left;
-  font: 600 11px/1.4 var(--font-sans); letter-spacing: .12em; text-transform: uppercase;
   color: var(--color-muted);
 }
 
@@ -877,10 +876,10 @@ a   { color: inherit; }
 .preorder {
   display: flex; align-items: center; gap: 10px;
   margin: 0 0 22px;
-  font: 500 14px/1.4 var(--font-sans);
+  font: 400 14px/1.4 var(--font-sans);
   color: var(--color-ink);
 }
-.preorder span { font-size: 18px; line-height: 1; }
+.preorder span { font-size: 16px; line-height: 1; }
 
 /* Vorbestell-Hinweis unter dem Kaufbutton */
 .product__note { margin: 14px 0 0; font: 400 13px/1.55 var(--font-sans); color: var(--color-muted); }
@@ -894,7 +893,7 @@ a   { color: inherit; }
 .pay-notice {
   margin-top: 12px; padding: 14px 16px; border-radius: 12px;
   background: rgba(245,137,10,.12);
-  font: 400 14px/1.5 var(--font-serif); color: var(--color-ink);
+  font: 400 14px/1.5 var(--font-sans); color: var(--color-ink);
 }
 .pay-notice[hidden] { display: none; }
 
@@ -915,8 +914,8 @@ a   { color: inherit; }
   .product__title { font-size: clamp(44px, 3.8vw, 54px); margin-bottom: 18px; }
   .product__desc { font-size: 16px; line-height: 1.6; margin-bottom: 20px; max-width: 460px; }
   .specs { margin-bottom: 24px; }
-  .specs li { padding: 10px 0; font-size: 15px; }
-  .preorder { margin-bottom: 16px; font-size: 13px; }
+  .specs li { padding: 10px 0; }
+  .preorder { margin-bottom: 16px; }
   .price { margin-bottom: 14px; }
   .price__value { font-size: 46px; }
   .btn--block { padding: 16px 22px; }
