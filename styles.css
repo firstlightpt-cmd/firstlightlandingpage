@@ -742,64 +742,10 @@ a   { color: inherit; }
 .gallery__track:focus-visible { outline: 3px solid var(--color-sunrise-orange); outline-offset: -3px; }
 .gallery__slide {
   flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always;
-  container-type: size;                 /* Innenmaße (cqw/cqh) beziehen sich auf die Folie */
   display: flex; align-items: center; justify-content: center;
 }
 .gallery__slide > img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* --- Platzhalter-Design: eine Kalenderseite im A3-Querformat (1.414 : 1) ----
-   Liegt wie ein echtes Produkt auf einer sandfarbenen Fläche. Alle Innenmaße
-   sind in "em" angegeben und em = 1 % der Folienbreite → skaliert mit. */
-.calpage {
-  position: relative;
-  width: min(86cqw, 80cqh * 1.4142);    /* passt in Breite UND Höhe */
-  aspect-ratio: 1.4142;
-  font-size: 1cqw;
-  display: flex; flex-direction: column;
-  background: #fff; border-radius: 1em; overflow: hidden;
-  box-shadow: 0 2.6em 5em -2em rgba(20,40,60,.5), 0 .4em 1em rgba(0,0,0,.08);
-}
-/* Bindung mit Löchern am oberen Rand */
-.calpage::before {
-  content: ""; position: relative; z-index: 2; flex: none; height: 2.4em;
-  background: #f1ece3 radial-gradient(circle at center, #c9c0b0 23%, transparent 28%) 0 50% / 5em 100% repeat-x;
-  border-bottom: 1px solid rgba(0,0,0,.05);
-}
-/* Bildfläche als Design-Platzhalter: neutrales Grau mit Bild-Symbol */
-.calpage__photo, .calpage--cover::after {
-  background: #e7e3db url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8b0a1' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Ccircle cx='8.5' cy='9' r='1.6'/%3E%3Cpath d='M21 16l-5.5-5.5L7 19'/%3E%3C/svg%3E") center / 11em no-repeat;
-}
-.calpage__photo { position: relative; flex: 0 0 60%; }
-.calpage__foot {
-  flex: 1 1 auto; min-height: 0;
-  display: grid; grid-template-columns: 1.15fr .85fr; gap: 3em; align-items: center;
-  padding: 2.2em 3.6em 2.6em;
-}
-.calpage__month { display: flex; flex-direction: column; gap: 1.1em; min-width: 0; }
-.calpage__month em {
-  font: italic 300 7.4em/0.95 var(--font-serif); letter-spacing: -.02em; color: var(--color-ink);
-}
-.calpage__month span {
-  font: 400 2.05em/1.35 var(--font-serif); color: var(--color-muted);
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-}
-.calpage__grid {
-  display: grid; grid-template-columns: repeat(7, 1fr); gap: .45em .7em;
-  text-align: center;
-  font: 500 1.85em/1.3 var(--font-sans); color: var(--color-muted);
-}
-.calpage__grid b { font-weight: 600; color: var(--color-ink); }
-/* Cover: ganze Seite Platzhalter-Fläche, Titel unten links */
-.calpage--cover::after { content: ""; position: absolute; inset: 2.4em 0 0 0; }
-.calpage__cover {
-  position: absolute; inset: 0; z-index: 1;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 4em 4.6em;
-  color: var(--color-ink);
-}
-.calpage__brand { font: 600 2em/1 var(--font-sans); letter-spacing: .26em; text-transform: uppercase; color: var(--color-sunrise-orange); margin-bottom: 1.8em; }
-.calpage__title { font: italic 300 9.2em/0.95 var(--font-serif); letter-spacing: -.02em; }
-.calpage__year  { font: 300 5.4em/1 var(--font-serif); margin-top: .35em; color: var(--color-muted); }
 .gallery__arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 42px; height: 42px; border-radius: 50%; border: none;
@@ -838,9 +784,6 @@ a   { color: inherit; }
   transition: opacity .2s ease, border-color .2s ease;
 }
 .gallery__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* Mini-Kalenderseite als Platzhalter: graue Bildfläche oben, weiß unten */
-.thumb-page { display: block; width: 100%; height: 100%; background: linear-gradient(#e7e3db 0 62%, #fff 62%); }
-.thumb-page--cover { background: #e7e3db; }
 .gallery__thumb.is-active { opacity: 1; border-color: var(--color-sunrise-orange); }
 
 /* --- Produkt-Infos --------------------------------------------------------- */

@@ -186,18 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const shop = document.querySelector('[data-shop]');
   if (shop) {
 
-    /* -- Platzhalter-Kalenderseiten: kleines Monatsraster erzeugen ------------
-       (Mo–So-Kopf, Leerfelder bis zum 1., dann die Tage). Läuft VOR dem
-       Klonen der Galerie, damit die Kopien das Raster schon enthalten. */
-    shop.querySelectorAll('[data-month-grid]').forEach(grid => {
-      const days   = Number(grid.dataset.days)   || 30;
-      const offset = Number(grid.dataset.offset) || 0;
-      let html = ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(d => `<b>${d}</b>`).join('');
-      for (let i = 0; i < offset; i++) html += '<span></span>';
-      for (let d = 1; d <= days; d++) html += `<span>${d}</span>`;
-      grid.innerHTML = html;
-    });
-
     /* -- a) Galerie als Endlos-Karussell -------------------------------------
        Trick: Vor das erste Foto kommt eine Kopie des letzten, hinter das
        letzte eine Kopie des ersten. Blättert man über den Rand, landet man

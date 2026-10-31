@@ -103,11 +103,8 @@
 
           <!-- Galerie: wischen (Handy), Pfeile oder Vorschaubilder klicken.
                Endlos: nach dem letzten Foto kommt wieder das erste.
-               PLATZHALTER-DESIGNS: jede Folie ist eine gerenderte Kalender-
-               seite (A3 quer) mit grauer Bildfläche. Sobald echte Produktfotos
-               da sind, jede <div class="calpage">…</div> durch ein <img>
-               ersetzen. Monatsnamen, Orte & Mini-Geschichten hier anpassen;
-               data-days = Tage im Monat, data-offset = Wochentag des 1. (Mo=0). -->
+               Neues Foto: eine gallery__slide UND einen passenden
+               gallery__thumb ergänzen (gleiche Reihenfolge). -->
           <div class="gallery" data-gallery>
             <div class="gallery__stage">
               <div class="gallery__track" data-gallery-track tabindex="0" aria-label="Product pages, use arrow keys to browse">
@@ -116,63 +113,6 @@
                 <div class="gallery__slide"><img src="/assets/web-ph-calendar-mockup-2.jpg" alt="June page with a swimming penguin, lying on a stone table next to a coffee" loading="lazy" decoding="async"></div>
                 <div class="gallery__slide"><img src="/assets/web-ph-calendar-mockup-3.jpg" alt="Calendar with a surfer on an orange beach, clipped to a kitchen tile wall" loading="lazy" decoding="async"></div>
                 <div class="gallery__slide"><img src="/assets/web-ph-calendar-mockup-4.jpg" alt="Calendar hanging inside a camper van with a view of the coast" loading="lazy" decoding="async"></div>
-                <div class="gallery__slide">
-                  <div class="calpage calpage--cover" role="img" aria-label="Cover - placeholder">
-                    <div class="calpage__cover">
-                      <span class="calpage__brand">First Light</span>
-                      <span class="calpage__title">Calendar</span>
-                      <span class="calpage__year">2027</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="gallery__slide">
-                  <div class="calpage" role="img" aria-label="January page - placeholder">
-                    <div class="calpage__photo"></div>
-                    <div class="calpage__foot">
-                      <div class="calpage__month">
-                        <em>January</em>
-                        <span>"Three of us, no wind, and the sun came up behind the cliff like it had somewhere to be."</span>
-                      </div>
-                      <div class="calpage__grid" data-month-grid data-days="31" data-offset="4" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="gallery__slide">
-                  <div class="calpage" role="img" aria-label="April page - placeholder">
-                    <div class="calpage__photo"></div>
-                    <div class="calpage__foot">
-                      <div class="calpage__month">
-                        <em>April</em>
-                        <span>"A right that runs long enough to think about lunch halfway down."</span>
-                      </div>
-                      <div class="calpage__grid" data-month-grid data-days="30" data-offset="3" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="gallery__slide">
-                  <div class="calpage" role="img" aria-label="August page - placeholder">
-                    <div class="calpage__photo"></div>
-                    <div class="calpage__foot">
-                      <div class="calpage__month">
-                        <em>August</em>
-                        <span>"Green water, an empty line-up, and a moon that didn't want to leave."</span>
-                      </div>
-                      <div class="calpage__grid" data-month-grid data-days="31" data-offset="6" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="gallery__slide">
-                  <div class="calpage" role="img" aria-label="October page - placeholder">
-                    <div class="calpage__photo"></div>
-                    <div class="calpage__foot">
-                      <div class="calpage__month">
-                        <em>October</em>
-                        <span>"We're not naming this one. You'd do the same."</span>
-                      </div>
-                      <div class="calpage__grid" data-month-grid data-days="31" data-offset="4" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                </div>
               </div>
               <button class="gallery__arrow gallery__arrow--prev" type="button" data-gallery-prev aria-label="Previous page">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
@@ -180,20 +120,15 @@
               <button class="gallery__arrow gallery__arrow--next" type="button" data-gallery-next aria-label="Next page">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
               </button>
-              <div class="gallery__counter" data-gallery-counter aria-live="polite">1 / 10</div>
+              <div class="gallery__counter" data-gallery-counter aria-live="polite">1 / 5</div>
             </div>
-            <!-- Vorschau-Kacheln: Mini-Seiten als Platzhalter (später: Mini-Fotos) -->
+            <!-- Vorschau-Kacheln -->
             <div class="gallery__thumbs" data-gallery-thumbs>
               <button class="gallery__thumb is-active" type="button" data-gallery-thumb aria-label="Photo 1 - calendar on the wall"><img src="/assets/web-ph-calendar-mockup.jpg" alt=""></button>
               <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Photo 2 - pages on a table"><img src="/assets/web-ph-calendar-mockup-1.jpg" alt="" loading="lazy"></button>
               <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Photo 3 - June page"><img src="/assets/web-ph-calendar-mockup-2.jpg" alt="" loading="lazy"></button>
               <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Photo 4 - in the kitchen"><img src="/assets/web-ph-calendar-mockup-3.jpg" alt="" loading="lazy"></button>
               <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Photo 5 - in a camper van"><img src="/assets/web-ph-calendar-mockup-4.jpg" alt="" loading="lazy"></button>
-              <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Page 6 - cover"><span class="thumb-page thumb-page--cover"></span></button>
-              <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Page 7 - January"><span class="thumb-page"></span></button>
-              <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Page 8 - April"><span class="thumb-page"></span></button>
-              <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Page 9 - August"><span class="thumb-page"></span></button>
-              <button class="gallery__thumb" type="button" data-gallery-thumb aria-label="Page 10 - October"><span class="thumb-page"></span></button>
             </div>
           </div>
 
